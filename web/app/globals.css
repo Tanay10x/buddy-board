@@ -1,21 +1,216 @@
+/* ─── External Font Imports ──────────────────────────────────────────────── */
+/* Satoshi from Fontshare CDN (display/headings).
+   Must be a CSS @import — Fontshare is not available via next/font/google. */
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap");
+/* Instrument Sans is loaded via next/font/google in layout.tsx (zero-CLS, self-hosted). */
+
+/* ─── Tailwind v4 ────────────────────────────────────────────────────────── */
 @import "tailwindcss";
 
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
 @theme inline {
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  /* Font families */
+  --font-sans: var(--font-instrument-sans), "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "JetBrains Mono", monospace;
 
+  /* Base colors */
+  --color-base: #0c0c0c;
+  --color-surface: #1a1a1a;
+  --color-elevated: #242424;
+  --color-hover: #2a2a2a;
+
+  /* Border colors */
+  --color-border: #2e2e2e;
+  --color-border-subtle: #1f1f1f;
+
+  /* Text colors */
+  --color-text-primary: #e5e7eb;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #6b7280;
+
+  /* Terminal accent */
+  --color-terminal: #4ade80;
+  --color-terminal-dim: #22c55e;
+
+  /* Rarity tiers */
   --color-rarity-common: #9ca3af;
   --color-rarity-uncommon: #22c55e;
   --color-rarity-rare: #3b82f6;
   --color-rarity-epic: #a855f7;
   --color-rarity-legendary: #eab308;
+
+  /* Spacing scale (4px base) */
+  --spacing-2xs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+
+  /* Border radius scale */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 }
 
+/* ─── CSS Custom Properties ──────────────────────────────────────────────── */
 :root {
-  --background: #030712;
-  --foreground: #f3f4f6;
+  /* Base surfaces */
+  --background: #0c0c0c;
+  --surface: #1a1a1a;
+  --elevated: #242424;
+  --hover: #2a2a2a;
+
+  /* Borders */
+  --border: #2e2e2e;
+  --border-subtle: #1f1f1f;
+
+  /* Text */
+  --foreground: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+
+  /* Accent */
+  --terminal: #4ade80;
+  --terminal-dim: #22c55e;
+
+  /* Rarity */
+  --rarity-common: #9ca3af;
+  --rarity-uncommon: #22c55e;
+  --rarity-rare: #3b82f6;
+  --rarity-epic: #a855f7;
+  --rarity-legendary: #eab308;
+
+  /* Layout */
+  --max-width: 1100px;
 }
 
+/* ─── Base Styles ────────────────────────────────────────────────────────── */
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Keyframe Animations ────────────────────────────────────────────────── */
+
+/* Gold glow breathing for legendary cards */
+@keyframes legendary-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 8px 0px rgba(234, 179, 8, 0.3),
+      0 0 24px 0px rgba(234, 179, 8, 0.15),
+      inset 0 0 12px 0px rgba(234, 179, 8, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 16px 4px rgba(234, 179, 8, 0.55),
+      0 0 48px 8px rgba(234, 179, 8, 0.3),
+      inset 0 0 20px 2px rgba(234, 179, 8, 0.1);
+  }
+}
+
+/* Holographic gradient sweep */
+@keyframes holo-shimmer {
+  0% {
+    background-position: -200% center;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    background-position: 200% center;
+    opacity: 0;
+  }
+}
+
+/* Stat bar fill from 0 to 100% */
+@keyframes stat-fill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* ─── Utility Classes ────────────────────────────────────────────────────── */
+
+/* CRT scanlines overlay */
+.scanlines {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.08) 3px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Holographic shimmer sweep */
+.holo-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.holo-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.04) 30%,
+    rgba(147, 197, 253, 0.08) 40%,
+    rgba(196, 181, 253, 0.1) 50%,
+    rgba(134, 239, 172, 0.08) 60%,
+    rgba(255, 255, 255, 0.04) 70%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: holo-shimmer 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Rarity card glows */
+.card-glow-rare {
+  box-shadow:
+    0 0 12px 0px rgba(59, 130, 246, 0.25),
+    0 0 32px 0px rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.card-glow-epic {
+  box-shadow:
+    0 0 12px 0px rgba(168, 85, 247, 0.3),
+    0 0 32px 0px rgba(168, 85, 247, 0.12);
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
+.card-glow-legendary {
+  border-color: rgba(234, 179, 8, 0.5);
+  animation: legendary-pulse 3s ease-in-out infinite;
 }
