@@ -51,7 +51,7 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
       }}
     >
       {/* All content sits above scanlines (z-10) and holo-shimmer (z-[5]) */}
-      <div className="relative z-10 p-4 sm:p-6">
+      <div className="relative z-10 p-5 sm:p-6">
         {/* Header row: rarity badge + species + shiny */}
         <div className="flex items-center justify-between mb-3 sm:mb-4">
           <RarityBadge rarity={buddy.rarity} />
