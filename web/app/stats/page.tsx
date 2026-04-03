@@ -4,25 +4,45 @@ import type { Rarity } from "@/lib/types";
 
 export const revalidate = 300;
 
-function BarChart({ data, colorFn }: { data: Record<string, number>; colorFn?: (key: string) => string }) {
+function BarChart({
+  data,
+  colorFn,
+}: {
+  data: Record<string, number>;
+  colorFn?: (key: string) => string;
+}) {
   const max = Math.max(...Object.values(data), 1);
   const sorted = Object.entries(data).sort((a, b) => b[1] - a[1]);
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       {sorted.map(([key, count]) => (
-        <div key={key} className="flex items-center gap-3 font-mono text-sm">
-          <span className="w-24 text-gray-400 capitalize">{key}</span>
-          <div className="flex-1 bg-gray-800 rounded-full h-4 overflow-hidden">
+        <div key={key} className="flex items-center gap-3">
+          <span
+            className="font-mono text-xs capitalize w-24 shrink-0"
+            style={{ color: "#9ca3af" }}
+          >
+            {key}
+          </span>
+          <div
+            className="flex-1 rounded-sm overflow-hidden"
+            style={{ backgroundColor: "#1a1a1a", height: "8px" }}
+          >
             <div
-              className="h-full rounded-full"
               style={{
                 width: `${(count / max) * 100}%`,
+                height: "100%",
                 backgroundColor: colorFn?.(key) ?? "#4ade80",
+                borderRadius: "2px",
               }}
             />
           </div>
-          <span className="w-8 text-right text-gray-500">{count}</span>
+          <span
+            className="font-mono text-xs w-8 text-right shrink-0"
+            style={{ color: "#6b7280" }}
+          >
+            {count}
+          </span>
         </div>
       ))}
     </div>
@@ -33,34 +53,82 @@ export default async function StatsPage() {
   const stats = await getGlobalStats();
 
   return (
-    <div className="max-w-3xl mx-auto space-y-12">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold text-white mb-2">Global Stats</h1>
-        <p className="text-gray-400">
-          {stats.totalBuddies} buddies registered {stats.shinies > 0 ? `• ${stats.shinies} shiny` : ""}
+    <div className="max-w-3xl mx-auto space-y-14">
+      {/* ── Header ───────────────────────────────────────── */}
+      <div className="text-center pt-4">
+        <h1
+          className="text-4xl font-black mb-2 tracking-tight"
+          style={{ fontFamily: "Satoshi, sans-serif", color: "#e5e7eb" }}
+        >
+          Global Stats
+        </h1>
+        <p className="font-sans text-sm" style={{ color: "#6b7280" }}>
+          {stats.totalBuddies} {stats.totalBuddies === 1 ? "buddy" : "buddies"} registered
+          {stats.shinies > 0 && (
+            <span style={{ color: "#4ade80" }}> • {stats.shinies} shiny</span>
+          )}
         </p>
       </div>
 
+      {/* ── Species Distribution ─────────────────────────── */}
       <section>
-        <h2 className="text-xl font-bold text-white mb-4">Species Distribution</h2>
-        <BarChart data={stats.speciesCounts} />
+        <h2
+          className="text-xl font-bold mb-5"
+          style={{ fontFamily: "Satoshi, sans-serif", color: "#e5e7eb" }}
+        >
+          Species Distribution
+        </h2>
+        <div
+          className="rounded-lg border p-6"
+          style={{ backgroundColor: "#1a1a1a", borderColor: "#2e2e2e" }}
+        >
+          <BarChart data={stats.speciesCounts} />
+        </div>
       </section>
 
+      {/* ── Rarity Distribution ──────────────────────────── */}
       <section>
-        <h2 className="text-xl font-bold text-white mb-4">Rarity Distribution</h2>
-        <BarChart
-          data={stats.rarityCounts}
-          colorFn={(key) => RARITY_COLORS[key as Rarity] ?? "#9ca3af"}
-        />
+        <h2
+          className="text-xl font-bold mb-5"
+          style={{ fontFamily: "Satoshi, sans-serif", color: "#e5e7eb" }}
+        >
+          Rarity Distribution
+        </h2>
+        <div
+          className="rounded-lg border p-6"
+          style={{ backgroundColor: "#1a1a1a", borderColor: "#2e2e2e" }}
+        >
+          <BarChart
+            data={stats.rarityCounts}
+            colorFn={(key) => RARITY_COLORS[key as Rarity] ?? "#9ca3af"}
+          />
+        </div>
       </section>
 
+      {/* ── Average Stats ────────────────────────────────── */}
       <section>
-        <h2 className="text-xl font-bold text-white mb-4">Average Stats</h2>
-        <div className="grid grid-cols-5 gap-4">
+        <h2
+          className="text-xl font-bold mb-5"
+          style={{ fontFamily: "Satoshi, sans-serif", color: "#e5e7eb" }}
+        >
+          Average Stats
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {Object.entries(stats.avgStats).map(([stat, avg]) => (
-            <div key={stat} className="bg-gray-900 border border-gray-800 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-white">{avg}</div>
-              <div className="text-gray-500 text-xs mt-1">{stat}</div>
+            <div
+              key={stat}
+              className="rounded-lg border p-4 text-center"
+              style={{ backgroundColor: "#1a1a1a", borderColor: "#2e2e2e" }}
+            >
+              <div
+                className="text-2xl font-bold mb-1"
+                style={{ fontFamily: "Satoshi, sans-serif", color: "#4ade80" }}
+              >
+                {avg}
+              </div>
+              <div className="font-mono text-xs uppercase" style={{ color: "#6b7280" }}>
+                {stat}
+              </div>
             </div>
           ))}
         </div>
