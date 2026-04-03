@@ -1,0 +1,21 @@
+{
+  "name": "buddy-board",
+  "version": "0.1.0",
+  "description": "Submit your Claude Code buddy to the leaderboard",
+  "type": "module",
+  "bin": {
+    "buddy-board": "./index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "index.js",
+    "roll.js",
+    "types.js",
+    "config.js",
+    "submit.js"
+  ],
+  "keywords": ["claude", "buddy", "leaderboard"],
+  "license": "MIT"
+}
