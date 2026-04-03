@@ -19,12 +19,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${buddy.name} — ${username}'s Buddy`,
       description: buddy.personality,
-      images: [`/card/${username}.png`],
+      images: [`/card/${username}`],
     },
     twitter: {
       card: "summary_large_image",
       title: `${buddy.name} — ${username}'s Buddy`,
-      images: [`/card/${username}.png`],
+      images: [`/card/${username}`],
     },
   };
 }
@@ -35,7 +35,7 @@ export default async function ProfilePage({ params }: Props) {
   if (!buddy) notFound();
 
   const rank = await getBuddyRank(username);
-  const cardUrl = `https://buddyboard.dev/card/${username}.png`;
+  const cardUrl = `https://buddyboard.dev/card/${username}`;
   const profileUrl = `https://buddyboard.dev/u/${username}`;
 
   return (

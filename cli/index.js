@@ -48,7 +48,7 @@ function validateUsername(username) {
 
 function printSuccess(username) {
   const viewUrl = `${SITE_URL}/u/${username}`;
-  const cardUrl = `${SITE_URL}/card/${username}.png`;
+  const cardUrl = `${SITE_URL}/card/${username}`;
   console.log(`
 ╭──────────────────────────────────────────────╮
 │ ✓ Buddy submitted!                           │
