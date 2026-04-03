@@ -64,9 +64,6 @@ create view public.buddies_public as
 -- RPC function for submit/update
 create or replace function public.submit_buddy(
   p_username text,
-  p_token text default null,
-  p_github_username text default null,
-  p_github_verified boolean default false,
   p_name text,
   p_personality text,
   p_hatched_at bigint,
@@ -74,8 +71,11 @@ create or replace function public.submit_buddy(
   p_rarity text,
   p_eye text,
   p_hat text,
-  p_shiny boolean default false,
-  p_stats jsonb
+  p_stats jsonb,
+  p_token text default null,
+  p_github_username text default null,
+  p_github_verified boolean default false,
+  p_shiny boolean default false
 )
 returns jsonb
 language plpgsql

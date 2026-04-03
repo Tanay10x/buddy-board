@@ -1,5 +1,5 @@
-const SUPABASE_URL = process.env.BUDDY_BOARD_SUPABASE_URL || "https://YOUR_PROJECT.supabase.co";
-const SUPABASE_ANON_KEY = process.env.BUDDY_BOARD_SUPABASE_KEY || "YOUR_ANON_KEY";
+const SUPABASE_URL = process.env.BUDDY_BOARD_SUPABASE_URL || "https://szzwwuwtsmfeiuezqhvu.supabase.co";
+const SUPABASE_ANON_KEY = process.env.BUDDY_BOARD_SUPABASE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6end3dXd0c21mZWl1ZXpxaHZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMTYzNTAsImV4cCI6MjA5MDc5MjM1MH0.miZIoydVgnrdM_0YZ-56181kFfTXu-8dr-fYSj-lwT0";
 
 export async function verifyGithub(username) {
   try {
