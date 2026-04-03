@@ -12,7 +12,10 @@ export function SpriteRenderer({
 }) {
   const lines = renderSprite(species, eye, hat);
   return (
-    <pre className="font-mono text-sm leading-tight text-green-400 select-none">
+    <pre
+      className="font-mono text-sm leading-tight select-none shrink-0"
+      style={{ color: "#4ade80" }}
+    >
       {lines.join("\n")}
     </pre>
   );

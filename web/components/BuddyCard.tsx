@@ -2,59 +2,142 @@ import { SpriteRenderer } from "./SpriteRenderer";
 import { StatBar } from "./StatBar";
 import { RarityBadge } from "./RarityBadge";
 import { STAT_NAMES, RARITY_COLORS } from "@/lib/constants";
-import type { Buddy } from "@/lib/types";
+import type { Buddy, Rarity } from "@/lib/types";
+
+// Rarity-specific border color + extra CSS classes
+function getRarityConfig(rarity: Rarity): {
+  borderColor: string;
+  extraClasses: string;
+} {
+  switch (rarity) {
+    case "common":
+      return {
+        borderColor: "#9ca3af",
+        extraClasses: "",
+      };
+    case "uncommon":
+      return {
+        borderColor: "#22c55e",
+        extraClasses: "",
+      };
+    case "rare":
+      return {
+        borderColor: "#3b82f6",
+        extraClasses: "card-glow-rare",
+      };
+    case "epic":
+      return {
+        borderColor: "#a855f7",
+        extraClasses: "card-glow-epic",
+      };
+    case "legendary":
+      return {
+        borderColor: "#eab308",
+        extraClasses: "card-glow-legendary holo-shimmer",
+      };
+  }
+}
 
 export function BuddyCard({ buddy }: { buddy: Buddy }) {
-  const borderColor = RARITY_COLORS[buddy.rarity];
+  const { borderColor, extraClasses } = getRarityConfig(buddy.rarity);
+  const rarityColor = RARITY_COLORS[buddy.rarity];
 
   return (
     <div
-      className="relative rounded-lg border-2 bg-gray-950 p-6 font-mono max-w-lg"
-      style={{ borderColor }}
+      className={`scanlines relative rounded-xl border-2 overflow-hidden max-w-lg transition-transform duration-300 ease-out hover:-translate-y-1 ${extraClasses}`}
+      style={{
+        borderColor,
+        background: "var(--color-surface)",
+      }}
     >
-      {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <RarityBadge rarity={buddy.rarity} />
-        <span className="text-gray-400 text-sm uppercase">
-          {buddy.species}
-          {buddy.shiny && <span className="ml-2 text-yellow-300">✨ SHINY</span>}
-        </span>
-      </div>
-
-      {/* Sprite + Info */}
-      <div className="flex gap-6 mb-4">
-        <SpriteRenderer species={buddy.species} eye={buddy.eye} hat={buddy.hat} />
-        <div className="flex flex-col justify-center">
-          <h2 className="text-xl font-bold text-white">{buddy.name}</h2>
-          <p className="text-gray-400 text-sm italic mt-1 leading-snug max-w-64">
-            &quot;{buddy.personality}&quot;
-          </p>
+      {/* All content sits above scanlines (z-10) and holo-shimmer (z-[5]) */}
+      <div className="relative z-10 p-6">
+        {/* Header row: rarity badge + species + shiny */}
+        <div className="flex items-center justify-between mb-4">
+          <RarityBadge rarity={buddy.rarity} />
+          <div className="flex items-center gap-2">
+            {buddy.shiny && (
+              <span
+                className="text-xs font-bold font-mono uppercase tracking-wider"
+                style={{ color: "#eab308" }}
+              >
+                ✨ SHINY
+              </span>
+            )}
+            <span
+              className="text-xs font-mono uppercase tracking-wider"
+              style={{ color: rarityColor }}
+            >
+              {buddy.species}
+            </span>
+          </div>
         </div>
-      </div>
 
-      {/* Stats */}
-      <div className="space-y-1">
-        {STAT_NAMES.map((stat) => (
-          <StatBar
-            key={stat}
-            label={stat}
-            value={buddy.stats[stat]}
-            rarity={buddy.rarity}
+        {/* Sprite + Name / Personality */}
+        <div className="flex gap-5 mb-5">
+          <SpriteRenderer
+            species={buddy.species}
+            eye={buddy.eye}
+            hat={buddy.hat}
           />
-        ))}
-      </div>
+          <div className="flex flex-col justify-center min-w-0">
+            <h2
+              className="text-xl font-bold leading-tight truncate"
+              style={{
+                fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif",
+                color: "var(--color-text-primary)",
+              }}
+            >
+              {buddy.name}
+            </h2>
+            <p
+              className="text-sm italic mt-1 leading-snug"
+              style={{ color: "var(--color-text-secondary)" }}
+            >
+              &quot;{buddy.personality}&quot;
+            </p>
+          </div>
+        </div>
 
-      {/* Footer */}
-      <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-800 text-sm">
-        <span className="text-gray-400">
-          @{buddy.username}
-          {buddy.github_verified && (
-            <span className="ml-2 text-green-400">✓ GitHub</span>
-          )}
-        </span>
-        <span className="text-gray-500">
-          Hatched {new Date(buddy.hatched_at).toLocaleDateString()}
-        </span>
+        {/* Stats */}
+        <div className="space-y-2">
+          {STAT_NAMES.map((stat) => (
+            <StatBar
+              key={stat}
+              label={stat}
+              value={buddy.stats[stat]}
+              rarity={buddy.rarity}
+            />
+          ))}
+        </div>
+
+        {/* Footer */}
+        <div
+          className="flex items-center justify-between mt-5 pt-4"
+          style={{ borderTop: "1px solid var(--color-border-subtle)" }}
+        >
+          <div className="flex items-center gap-2 font-mono text-xs">
+            <span style={{ color: "var(--color-text-secondary)" }}>
+              @{buddy.username}
+            </span>
+            {buddy.github_verified && (
+              <span
+                className="inline-flex items-center gap-0.5 text-xs font-bold"
+                style={{ color: "#4ade80" }}
+                title="GitHub Verified"
+              >
+                <span>✓</span>
+                <span>GitHub</span>
+              </span>
+            )}
+          </div>
+          <span
+            className="font-mono text-xs"
+            style={{ color: "var(--color-text-muted)" }}
+          >
+            Hatched {new Date(buddy.hatched_at).toLocaleDateString()}
+          </span>
+        </div>
       </div>
     </div>
   );

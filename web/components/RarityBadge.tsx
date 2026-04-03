@@ -2,12 +2,19 @@ import { RARITY_COLORS, RARITY_STARS } from "@/lib/constants";
 import type { Rarity } from "@/lib/types";
 
 export function RarityBadge({ rarity }: { rarity: Rarity }) {
+  const color = RARITY_COLORS[rarity];
+
   return (
     <span
-      className="font-mono text-sm font-bold uppercase"
-      style={{ color: RARITY_COLORS[rarity] }}
+      className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest"
+      style={{
+        color,
+        fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif",
+        letterSpacing: "0.12em",
+      }}
     >
-      {RARITY_STARS[rarity]} {rarity}
+      <span style={{ letterSpacing: "0.05em" }}>{RARITY_STARS[rarity]}</span>
+      <span>{rarity}</span>
     </span>
   );
 }
