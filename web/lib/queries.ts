@@ -26,7 +26,7 @@ export async function getLeaderboard(
   }
 
   const { data, error } = await query;
-  if (error) throw error;
+  if (error || !data) return [];
 
   let buddies = data as Buddy[];
 
