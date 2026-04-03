@@ -39,7 +39,7 @@ function sortBuddies(buddies: Buddy[], sortBy: SortField): Buddy[] {
 }
 
 const selectClasses =
-  "bg-elevated text-text-secondary border border-border rounded-md px-3 py-1.5 text-xs font-mono outline-none cursor-pointer appearance-none";
+  "rounded-md px-3 py-1.5 text-xs font-mono outline-none cursor-pointer appearance-none";
 
 export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
   const [sortBy, setSortBy] = useState<SortField>("total_stats");
@@ -70,7 +70,8 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
           placeholder="Search username or buddy..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className={`${selectClasses} text-text-primary w-full sm:w-auto sm:min-w-[200px]`}
+          className={`${selectClasses} w-full sm:w-auto sm:min-w-[200px]`}
+          style={{ backgroundColor: "#242424", color: "#e5e7eb", border: "1px solid #2e2e2e" }}
         />
 
         {/* Sort */}
@@ -78,6 +79,7 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as SortField)}
           className={selectClasses}
+          style={{ backgroundColor: "#242424", color: "#9ca3af", border: "1px solid #2e2e2e" }}
         >
           {SORT_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -91,6 +93,7 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
           value={filterSpecies}
           onChange={(e) => setFilterSpecies(e.target.value)}
           className={selectClasses}
+          style={{ backgroundColor: "#242424", color: "#9ca3af", border: "1px solid #2e2e2e" }}
         >
           <option value="">All Species</option>
           {SPECIES_LIST.map((s) => (
@@ -105,6 +108,7 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
           value={filterRarity}
           onChange={(e) => setFilterRarity(e.target.value)}
           className={selectClasses}
+          style={{ backgroundColor: "#242424", color: "#9ca3af", border: "1px solid #2e2e2e" }}
         >
           <option value="">All Rarities</option>
           {["legendary", "epic", "rare", "uncommon", "common"].map((r) => (
@@ -116,10 +120,10 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-lg border border-border">
-        <table className="leaderboard-table w-full text-left">
+      <div className="overflow-x-auto rounded-lg" style={{ border: "1px solid #2e2e2e" }}>
+        <table className="leaderboard-table min-w-full text-left">
           <thead>
-            <tr className="border-b border-border">
+            <tr style={{ borderBottom: "1px solid #2e2e2e" }}>
               {[
                 { label: "#", cls: "w-10 sm:w-12 text-right" },
                 { label: "User", cls: "" },
@@ -135,7 +139,8 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
               ].map(({ label, cls }) => (
                 <th
                   key={label}
-                  className={`py-2.5 px-2 sm:px-4 font-mono text-xs font-semibold uppercase tracking-widest text-text-muted ${cls}`}
+                  className={`py-2.5 px-2 sm:px-4 font-mono text-xs font-semibold uppercase tracking-widest ${cls}`}
+                  style={{ color: "#6b7280" }}
                 >
                   {label}
                 </th>
@@ -153,7 +158,7 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
       {/* Empty state */}
       {sorted.length === 0 && (
         <div className="py-16 text-center">
-          <p className="font-mono text-sm text-text-muted">
+          <p className="font-mono text-sm" style={{ color: "#6b7280" }}>
             No buddies found. Be the first!
           </p>
         </div>

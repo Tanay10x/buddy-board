@@ -26,11 +26,11 @@ export function StatBar({
 
   return (
     <div className="flex items-center gap-2 sm:gap-3">
-      <span className="w-16 sm:w-24 shrink-0 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-text-muted">
+      <span className="w-16 sm:w-24 shrink-0 text-[10px] sm:text-xs font-mono uppercase tracking-wider" style={{ color: "#6b7280" }}>
         {label}
       </span>
       {/* Track */}
-      <div className="flex-1 rounded-full overflow-hidden h-1.5 bg-elevated">
+      <div className="flex-1 rounded-full overflow-hidden h-2" style={{ backgroundColor: "#242424" }}>
         {/* Fill */}
         <div
           ref={barRef}
@@ -44,7 +44,7 @@ export function StatBar({
           }}
         />
       </div>
-      <span className="w-7 sm:w-8 shrink-0 text-right text-xs font-mono font-bold text-text-primary">
+      <span className="w-7 sm:w-8 shrink-0 text-right text-xs font-mono font-bold" style={{ color: "#e5e7eb" }}>
         {value}
       </span>
     </div>

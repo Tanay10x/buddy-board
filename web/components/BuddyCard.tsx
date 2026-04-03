@@ -44,10 +44,10 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
 
   return (
     <div
-      className={`scanlines relative rounded-xl border-2 overflow-hidden w-full max-w-sm sm:max-w-md transition-transform duration-300 ease-out hover:-translate-y-1 ${extraClasses}`}
+      className={`scanlines relative rounded-xl border-2 overflow-hidden w-full max-w-sm mx-auto transition-transform duration-300 ease-out hover:-translate-y-1 ${extraClasses}`}
       style={{
         borderColor,
-        background: "var(--surface)",
+        backgroundColor: "#1a1a1a",
       }}
     >
       {/* All content sits above scanlines (z-10) and holo-shimmer (z-[5]) */}
@@ -81,10 +81,10 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
             hat={buddy.hat}
           />
           <div className="flex flex-col justify-center min-w-0">
-            <h2 className="font-display text-lg sm:text-xl font-bold leading-tight truncate text-text-primary">
+            <h2 className="font-display text-lg sm:text-xl font-bold leading-tight truncate" style={{ color: "#e5e7eb" }}>
               {buddy.name}
             </h2>
-            <p className="text-xs sm:text-sm italic mt-1 leading-snug text-text-secondary">
+            <p className="text-xs sm:text-sm italic mt-1 leading-snug" style={{ color: "#9ca3af" }}>
               &quot;{buddy.personality}&quot;
             </p>
           </div>
@@ -103,14 +103,15 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-border-subtle">
+        <div className="flex items-center justify-between mt-4 sm:mt-5 pt-3 sm:pt-4" style={{ borderTop: "1px solid #1f1f1f" }}>
           <div className="flex items-center gap-2 font-mono text-xs">
-            <span className="text-text-secondary">
+            <span style={{ color: "#9ca3af" }}>
               @{buddy.username}
             </span>
             {buddy.github_verified && (
               <span
-                className="inline-flex items-center gap-0.5 text-xs font-bold text-terminal"
+                className="inline-flex items-center gap-0.5 text-xs font-bold"
+                style={{ color: "#4ade80" }}
                 title="GitHub Verified"
               >
                 <span>✓</span>
@@ -118,7 +119,7 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
               </span>
             )}
           </div>
-          <span className="font-mono text-xs text-text-muted">
+          <span className="font-mono text-xs" style={{ color: "#6b7280" }}>
             Hatched {new Date(buddy.hatched_at).toLocaleDateString()}
           </span>
         </div>
