@@ -6,10 +6,9 @@ export function RarityBadge({ rarity }: { rarity: Rarity }) {
 
   return (
     <span
-      className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest"
+      className="inline-flex items-center gap-1 text-xs font-bold font-display uppercase"
       style={{
         color,
-        fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif",
         letterSpacing: "0.12em",
       }}
     >

@@ -46,19 +46,13 @@ export default async function ProfilePage({ params }: Props) {
       </div>
 
       {/* ── Rankings ─────────────────────────────────────── */}
-      <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-3">
+      <div className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
         {/* Overall rank */}
-        <div
-          className="rounded-lg border p-4 text-center"
-          style={{ backgroundColor: "#1a1a1a", borderColor: "#2e2e2e" }}
-        >
-          <div
-            className="text-2xl font-bold mb-1"
-            style={{ fontFamily: "Satoshi, sans-serif", color: "#4ade80" }}
-          >
+        <div className="rounded-lg border border-border bg-surface p-3 sm:p-4 text-center">
+          <div className="font-display text-xl sm:text-2xl font-bold mb-1 text-terminal">
             #{rank.overall}
           </div>
-          <div className="font-sans text-xs uppercase tracking-wider" style={{ color: "#6b7280" }}>
+          <div className="font-sans text-[10px] sm:text-xs uppercase tracking-wider text-text-muted">
             Overall
           </div>
         </div>
@@ -67,16 +61,12 @@ export default async function ProfilePage({ params }: Props) {
         {STAT_NAMES.map((stat) => (
           <div
             key={stat}
-            className="rounded-lg border p-4 text-center"
-            style={{ backgroundColor: "#1a1a1a", borderColor: "#2e2e2e" }}
+            className="rounded-lg border border-border bg-surface p-3 sm:p-4 text-center"
           >
-            <div
-              className="text-2xl font-bold mb-1"
-              style={{ fontFamily: "Satoshi, sans-serif", color: "#e5e7eb" }}
-            >
+            <div className="font-display text-xl sm:text-2xl font-bold mb-1 text-text-primary">
               #{rank.perStat[stat]}
             </div>
-            <div className="font-mono text-xs uppercase" style={{ color: "#6b7280" }}>
+            <div className="font-mono text-[10px] sm:text-xs uppercase text-text-muted">
               {stat}
             </div>
           </div>
@@ -84,48 +74,27 @@ export default async function ProfilePage({ params }: Props) {
       </div>
 
       {/* ── Share ────────────────────────────────────────── */}
-      <div className="mt-10 space-y-4">
-        <h3
-          className="text-xs font-semibold uppercase tracking-widest"
-          style={{ color: "#6b7280" }}
-        >
+      <div className="mt-8 sm:mt-10 space-y-3 sm:space-y-4">
+        <h3 className="text-xs font-semibold uppercase tracking-widest text-text-muted">
           Share
         </h3>
 
         {/* Embed in README */}
-        <div
-          className="rounded-lg border p-4"
-          style={{ backgroundColor: "#1a1a1a", borderColor: "#2e2e2e" }}
-        >
-          <label
-            className="block font-sans text-xs mb-2 uppercase tracking-wider"
-            style={{ color: "#6b7280" }}
-          >
+        <div className="rounded-lg border border-border bg-surface p-3 sm:p-4">
+          <label className="block font-sans text-xs mb-2 uppercase tracking-wider text-text-muted">
             Embed in README
           </label>
-          <code
-            className="font-mono text-xs break-all leading-relaxed block"
-            style={{ color: "#4ade80" }}
-          >
+          <code className="font-mono text-xs break-all leading-relaxed block text-terminal">
             [![buddy]({cardUrl})]({profileUrl})
           </code>
         </div>
 
         {/* Share link */}
-        <div
-          className="rounded-lg border p-4"
-          style={{ backgroundColor: "#1a1a1a", borderColor: "#2e2e2e" }}
-        >
-          <label
-            className="block font-sans text-xs mb-2 uppercase tracking-wider"
-            style={{ color: "#6b7280" }}
-          >
+        <div className="rounded-lg border border-border bg-surface p-3 sm:p-4">
+          <label className="block font-sans text-xs mb-2 uppercase tracking-wider text-text-muted">
             Share link
           </label>
-          <code
-            className="font-mono text-xs break-all block"
-            style={{ color: "#4ade80" }}
-          >
+          <code className="font-mono text-xs break-all block text-terminal">
             {profileUrl}
           </code>
         </div>

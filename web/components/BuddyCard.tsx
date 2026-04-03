@@ -44,16 +44,16 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
 
   return (
     <div
-      className={`scanlines relative rounded-xl border-2 overflow-hidden max-w-lg transition-transform duration-300 ease-out hover:-translate-y-1 ${extraClasses}`}
+      className={`scanlines relative rounded-xl border-2 overflow-hidden w-full max-w-sm sm:max-w-md transition-transform duration-300 ease-out hover:-translate-y-1 ${extraClasses}`}
       style={{
         borderColor,
-        background: "var(--color-surface)",
+        background: "var(--surface)",
       }}
     >
       {/* All content sits above scanlines (z-10) and holo-shimmer (z-[5]) */}
-      <div className="relative z-10 p-6">
+      <div className="relative z-10 p-4 sm:p-6">
         {/* Header row: rarity badge + species + shiny */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
           <RarityBadge rarity={buddy.rarity} />
           <div className="flex items-center gap-2">
             {buddy.shiny && (
@@ -74,26 +74,17 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
         </div>
 
         {/* Sprite + Name / Personality */}
-        <div className="flex gap-5 mb-5">
+        <div className="flex gap-3 sm:gap-5 mb-4 sm:mb-5">
           <SpriteRenderer
             species={buddy.species}
             eye={buddy.eye}
             hat={buddy.hat}
           />
           <div className="flex flex-col justify-center min-w-0">
-            <h2
-              className="text-xl font-bold leading-tight truncate"
-              style={{
-                fontFamily: "Satoshi, ui-sans-serif, system-ui, sans-serif",
-                color: "var(--color-text-primary)",
-              }}
-            >
+            <h2 className="font-display text-lg sm:text-xl font-bold leading-tight truncate text-text-primary">
               {buddy.name}
             </h2>
-            <p
-              className="text-sm italic mt-1 leading-snug"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
+            <p className="text-xs sm:text-sm italic mt-1 leading-snug text-text-secondary">
               &quot;{buddy.personality}&quot;
             </p>
           </div>
@@ -112,18 +103,14 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
         </div>
 
         {/* Footer */}
-        <div
-          className="flex items-center justify-between mt-5 pt-4"
-          style={{ borderTop: "1px solid var(--color-border-subtle)" }}
-        >
+        <div className="flex items-center justify-between mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-border-subtle">
           <div className="flex items-center gap-2 font-mono text-xs">
-            <span style={{ color: "var(--color-text-secondary)" }}>
+            <span className="text-text-secondary">
               @{buddy.username}
             </span>
             {buddy.github_verified && (
               <span
-                className="inline-flex items-center gap-0.5 text-xs font-bold"
-                style={{ color: "#4ade80" }}
+                className="inline-flex items-center gap-0.5 text-xs font-bold text-terminal"
                 title="GitHub Verified"
               >
                 <span>✓</span>
@@ -131,10 +118,7 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
               </span>
             )}
           </div>
-          <span
-            className="font-mono text-xs"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+          <span className="font-mono text-xs text-text-muted">
             Hatched {new Date(buddy.hatched_at).toLocaleDateString()}
           </span>
         </div>

@@ -94,7 +94,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -142,13 +142,13 @@ body {
     width: 0%;
   }
   to {
-    width: 100%;
+    width: var(--fill-target, 100%);
   }
 }
 
 /* ─── Utility Classes ────────────────────────────────────────────────────── */
 
-/* CRT scanlines overlay */
+/* CRT scanlines overlay — DESIGN.MD: 3% opacity */
 .scanlines {
   position: relative;
   overflow: hidden;
@@ -162,8 +162,8 @@ body {
     to bottom,
     transparent 0px,
     transparent 3px,
-    rgba(0, 0, 0, 0.08) 3px,
-    rgba(0, 0, 0, 0.08) 4px
+    rgba(0, 0, 0, 0.03) 3px,
+    rgba(0, 0, 0, 0.03) 4px
   );
   pointer-events: none;
   z-index: 10;
@@ -213,4 +213,20 @@ body {
 .card-glow-legendary {
   border-color: rgba(234, 179, 8, 0.5);
   animation: legendary-pulse 3s ease-in-out infinite;
+}
+
+/* ─── Mobile-first table responsiveness ──────────────────────────────────── */
+@media (max-width: 639px) {
+  /* Tighten table cell padding on small screens */
+  .leaderboard-table td,
+  .leaderboard-table th {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/* ─── Dark select/option styling ─────────────────────────────────────────── */
+select option {
+  background: #242424;
+  color: #e5e7eb;
 }

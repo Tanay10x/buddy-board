@@ -38,17 +38,8 @@ function sortBuddies(buddies: Buddy[], sortBy: SortField): Buddy[] {
   }
 }
 
-const selectStyle: React.CSSProperties = {
-  background: "var(--color-elevated)",
-  color: "var(--color-text-secondary)",
-  border: "1px solid var(--color-border)",
-  borderRadius: "var(--radius-md)",
-  padding: "6px 12px",
-  fontSize: "12px",
-  fontFamily: "var(--font-mono), ui-monospace, monospace",
-  outline: "none",
-  cursor: "pointer",
-};
+const selectClasses =
+  "bg-elevated text-text-secondary border border-border rounded-md px-3 py-1.5 text-xs font-mono outline-none cursor-pointer appearance-none";
 
 export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
   const [sortBy, setSortBy] = useState<SortField>("total_stats");
@@ -72,26 +63,21 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
   return (
     <div>
       {/* Filters row */}
-      <div className="flex flex-wrap items-center gap-2 mb-5">
+      <div className="flex flex-wrap items-center gap-2 mb-4 sm:mb-5">
         {/* Search input */}
         <input
           type="text"
-          placeholder="Search username or buddy…"
+          placeholder="Search username or buddy..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          style={{
-            ...selectStyle,
-            padding: "6px 12px",
-            minWidth: "200px",
-            color: "var(--color-text-primary)",
-          }}
+          className={`${selectClasses} text-text-primary w-full sm:w-auto sm:min-w-[200px]`}
         />
 
         {/* Sort */}
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as SortField)}
-          style={selectStyle}
+          className={selectClasses}
         >
           {SORT_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -104,7 +90,7 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
         <select
           value={filterSpecies}
           onChange={(e) => setFilterSpecies(e.target.value)}
-          style={selectStyle}
+          className={selectClasses}
         >
           <option value="">All Species</option>
           {SPECIES_LIST.map((s) => (
@@ -118,7 +104,7 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
         <select
           value={filterRarity}
           onChange={(e) => setFilterRarity(e.target.value)}
-          style={selectStyle}
+          className={selectClasses}
         >
           <option value="">All Rarities</option>
           {["legendary", "epic", "rare", "uncommon", "common"].map((r) => (
@@ -130,27 +116,26 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-lg" style={{ border: "1px solid var(--color-border)" }}>
-        <table className="w-full text-left">
+      <div className="overflow-x-auto rounded-lg border border-border">
+        <table className="leaderboard-table w-full text-left">
           <thead>
-            <tr style={{ borderBottom: "1px solid var(--color-border)" }}>
+            <tr className="border-b border-border">
               {[
-                { label: "#", cls: "w-12 text-right" },
+                { label: "#", cls: "w-10 sm:w-12 text-right" },
                 { label: "User", cls: "" },
-                { label: "Buddy", cls: "" },
-                { label: "Species", cls: "" },
+                { label: "Buddy", cls: "hidden sm:table-cell" },
+                { label: "Species", cls: "hidden sm:table-cell" },
                 { label: "Rarity", cls: "" },
                 { label: "Total", cls: "text-right" },
-                { label: "DBG", cls: "text-right hidden md:table-cell" },
-                { label: "PAT", cls: "text-right hidden md:table-cell" },
-                { label: "CHS", cls: "text-right hidden md:table-cell" },
-                { label: "WIS", cls: "text-right hidden md:table-cell" },
-                { label: "SNK", cls: "text-right hidden md:table-cell" },
+                { label: "DBG", cls: "text-right hidden lg:table-cell" },
+                { label: "PAT", cls: "text-right hidden lg:table-cell" },
+                { label: "CHS", cls: "text-right hidden lg:table-cell" },
+                { label: "WIS", cls: "text-right hidden lg:table-cell" },
+                { label: "SNK", cls: "text-right hidden lg:table-cell" },
               ].map(({ label, cls }) => (
                 <th
                   key={label}
-                  className={`py-2.5 px-4 font-mono text-xs font-semibold uppercase tracking-widest ${cls}`}
-                  style={{ color: "var(--color-text-muted)" }}
+                  className={`py-2.5 px-2 sm:px-4 font-mono text-xs font-semibold uppercase tracking-widest text-text-muted ${cls}`}
                 >
                   {label}
                 </th>
@@ -168,10 +153,7 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
       {/* Empty state */}
       {sorted.length === 0 && (
         <div className="py-16 text-center">
-          <p
-            className="font-mono text-sm"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+          <p className="font-mono text-sm text-text-muted">
             No buddies found. Be the first!
           </p>
         </div>
