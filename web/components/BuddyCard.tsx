@@ -111,7 +111,7 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "#9ca3af" }}
-                className="transition-colors duration-150 hover-terminal-color"
+                className="transition-colors duration-150 hover:text-green-400"
               >
                 @{buddy.username}
               </a>
@@ -123,7 +123,7 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
             {buddy.github_verified && (
               <span
                 className="inline-flex items-center gap-0.5 text-xs font-bold"
-                style={{ color: "#E07A5F" }}
+                style={{ color: "#4ade80" }}
                 title="GitHub Verified"
               >
                 <span>✓</span>

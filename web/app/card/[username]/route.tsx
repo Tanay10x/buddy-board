@@ -82,7 +82,7 @@ export async function GET(
               style={{
                 fontSize: "21px",
                 lineHeight: "1.25",
-                color: "#E07A5F",
+                color: "#4ade80",
                 margin: 0,
                 whiteSpace: "pre",
               }}
@@ -171,7 +171,7 @@ export async function GET(
           <span style={{ color: "#9ca3af" }}>
             @{buddy.username}
             {buddy.github_verified ? (
-              <span style={{ color: "#E07A5F", marginLeft: "12px" }}>✓ GitHub</span>
+              <span style={{ color: "#4ade80", marginLeft: "12px" }}>✓ GitHub</span>
             ) : null}
           </span>
           <span style={{ color: "#6b7280", letterSpacing: "0.04em" }}>buddyboard.dev</span>

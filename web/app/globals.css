@@ -30,8 +30,8 @@
   --color-text-muted: #6b7280;
 
   /* Terminal accent */
-  --color-terminal: #E07A5F;
-  --color-terminal-dim: #C4603E;
+  --color-terminal: #4ade80;
+  --color-terminal-dim: #22c55e;
 
   /* Rarity tiers */
   --color-rarity-common: #9ca3af;
@@ -64,8 +64,8 @@
   --text-muted: #6b7280;
 
   /* Accent */
-  --terminal: #E07A5F;
-  --terminal-dim: #C4603E;
+  --terminal: #4ade80;
+  --terminal-dim: #22c55e;
 
   /* Rarity */
   --rarity-common: #9ca3af;
@@ -213,11 +213,6 @@ body {
     padding-left: 8px;
     padding-right: 8px;
   }
-}
-
-/* ─── Terminal accent hover ──────────────────────────────────────────────── */
-.hover-terminal-color:hover {
-  color: #E07A5F;
 }
 
 /* ─── Dark select/option styling ─────────────────────────────────────────── */

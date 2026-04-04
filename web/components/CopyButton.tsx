@@ -28,9 +28,9 @@ export function CopyButton({ text, label = "Copy" }: { text: string; label?: str
       onClick={handleCopy}
       className="font-mono text-xs px-2 py-1 rounded transition-colors cursor-pointer"
       style={{
-        backgroundColor: copied ? "rgba(224, 122, 95, 0.1)" : "#1a1a1a",
-        border: `1px solid ${copied ? "#E07A5F" : "#2e2e2e"}`,
-        color: copied ? "#E07A5F" : "#9ca3af",
+        backgroundColor: copied ? "rgba(74, 222, 128, 0.1)" : "#1a1a1a",
+        border: `1px solid ${copied ? "#4ade80" : "#2e2e2e"}`,
+        color: copied ? "#4ade80" : "#9ca3af",
       }}
     >
       {copied ? "Copied!" : label}

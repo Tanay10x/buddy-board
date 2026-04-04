@@ -91,7 +91,7 @@ export default async function SpeciesDetailPage({
           <div key={eye} className="flex flex-col items-center gap-2">
             <pre
               className="font-mono text-[10px] sm:text-xs leading-tight select-none"
-              style={{ whiteSpace: "pre", color: "#E07A5F" }}
+              style={{ whiteSpace: "pre", color: "#4ade80" }}
             >
               {renderSprite(species, eye, "none").join("\n")}
             </pre>
@@ -111,7 +111,7 @@ export default async function SpeciesDetailPage({
           <div className="text-center">
             <div
               className="font-display text-2xl font-bold"
-              style={{ color: "#E07A5F" }}
+              style={{ color: "#4ade80" }}
             >
               {total}
             </div>
@@ -162,7 +162,7 @@ export default async function SpeciesDetailPage({
                 <Link
                   href={`/u/${firstDiscovered.username}`}
                   className="font-mono text-sm"
-                  style={{ color: "#E07A5F" }}
+                  style={{ color: "#4ade80" }}
                 >
                   {firstDiscovered.username}
                 </Link>

@@ -68,7 +68,7 @@ export default async function ProfilePage({ params }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               className="font-mono text-sm font-bold transition-colors duration-150"
-              style={{ color: "#E07A5F" }}
+              style={{ color: "#4ade80" }}
             >
               @{buddy.github_username}
             </a>
@@ -103,7 +103,7 @@ export default async function ProfilePage({ params }: Props) {
           className="rounded-lg p-3 sm:p-4 text-center"
           style={{ backgroundColor: "#1a1a1a", border: "1px solid #2e2e2e" }}
         >
-          <div className="font-display text-xl sm:text-2xl font-bold mb-1" style={{ color: "#E07A5F" }}>
+          <div className="font-display text-xl sm:text-2xl font-bold mb-1" style={{ color: "#4ade80" }}>
             #{rank.overall}
           </div>
           <div className="font-sans text-[10px] sm:text-xs uppercase tracking-wider" style={{ color: "#6b7280" }}>
@@ -144,7 +144,7 @@ export default async function ProfilePage({ params }: Props) {
             </label>
             <CopyButton text={cardEmbed} />
           </div>
-          <code className="font-mono text-xs break-all leading-relaxed block" style={{ color: "#E07A5F" }}>
+          <code className="font-mono text-xs break-all leading-relaxed block" style={{ color: "#4ade80" }}>
             {cardEmbed}
           </code>
         </div>
@@ -160,7 +160,7 @@ export default async function ProfilePage({ params }: Props) {
             </label>
             <CopyButton text={badgeEmbed} />
           </div>
-          <code className="font-mono text-xs break-all leading-relaxed block" style={{ color: "#E07A5F" }}>
+          <code className="font-mono text-xs break-all leading-relaxed block" style={{ color: "#4ade80" }}>
             {badgeEmbed}
           </code>
         </div>
@@ -176,7 +176,7 @@ export default async function ProfilePage({ params }: Props) {
             </label>
             <CopyButton text={profileUrl} />
           </div>
-          <code className="font-mono text-xs break-all block" style={{ color: "#E07A5F" }}>
+          <code className="font-mono text-xs break-all block" style={{ color: "#4ade80" }}>
             {profileUrl}
           </code>
         </div>
