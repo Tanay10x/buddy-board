@@ -14,13 +14,7 @@
 
 ### Demo
 
-https://github.com/user-attachments/assets/buddy-board-promo
-
-<a href="https://github.com/TanayK07/buddy-board/releases/download/v0.1.0/BuddyBoardPromo.mp4">
-  <img src=".github/screenshots/video-thumb.png" alt="Buddy Board Promo Video" width="600" />
-</a>
-
-<sup>Click to watch the full promo video</sup>
+https://github.com/TanayK07/buddy-board/releases/download/v0.1.0/BuddyBoardPromo.mp4
 
 ---
 
