@@ -34,7 +34,7 @@ function BarChart({
               style={{
                 width: `${(count / max) * 100}%`,
                 height: "100%",
-                backgroundColor: colorFn?.(key) ?? "#4ade80",
+                backgroundColor: colorFn?.(key) ?? "#E07A5F",
                 borderRadius: "2px",
               }}
             />
@@ -81,7 +81,7 @@ function MiniCard({ buddy, rank }: { buddy: Buddy; rank: number }) {
         <div className="font-sans text-sm font-semibold truncate" style={{ color: "#e5e7eb" }}>
           {buddy.name}
         </div>
-        <div className="font-mono text-xs mt-1" style={{ color: "#4ade80" }}>
+        <div className="font-mono text-xs mt-1" style={{ color: "#E07A5F" }}>
           {buddy.total_stats} pts
         </div>
       </div>
@@ -109,7 +109,7 @@ function StatChampionRow({ stat, buddy }: { stat: StatName; buddy: Buddy }) {
       </span>
       <span
         className="font-mono text-sm font-bold shrink-0"
-        style={{ color: "#4ade80" }}
+        style={{ color: "#E07A5F" }}
       >
         {buddy.stats[stat]}
       </span>
@@ -137,7 +137,7 @@ function RareCard({ buddy }: { buddy: Buddy }) {
     badgeColor = "#eab308";
     badgeText = "Legendary";
   } else if (isShiny) {
-    badgeColor = "#4ade80";
+    badgeColor = "#E07A5F";
     badgeText = "✦ Shiny";
   }
 
@@ -146,7 +146,7 @@ function RareCard({ buddy }: { buddy: Buddy }) {
       className="rounded-lg p-3 sm:p-4 flex flex-col gap-1.5"
       style={{
         backgroundColor: "#1a1a1a",
-        border: `1px solid ${isShinyLegendary ? "#eab308" : isShiny ? "#4ade80" : "#2e2e2e"}`,
+        border: `1px solid ${isShinyLegendary ? "#eab308" : isShiny ? "#E07A5F" : "#2e2e2e"}`,
       }}
     >
       <div className="flex items-center justify-between gap-2">
@@ -169,7 +169,7 @@ function RareCard({ buddy }: { buddy: Buddy }) {
       <div className="font-mono text-[10px]" style={{ color: "#9ca3af" }}>
         @{buddy.username} &middot; {buddy.species}
       </div>
-      <div className="font-mono text-xs mt-0.5" style={{ color: "#4ade80" }}>
+      <div className="font-mono text-xs mt-0.5" style={{ color: "#E07A5F" }}>
         {buddy.total_stats} pts
       </div>
     </div>
@@ -206,7 +206,7 @@ export default async function StatsPage() {
         <p className="font-sans text-sm" style={{ color: "#6b7280" }}>
           {stats.totalBuddies} {stats.totalBuddies === 1 ? "buddy" : "buddies"} registered
           {stats.shinies > 0 && (
-            <span style={{ color: "#4ade80" }}> &bull; {stats.shinies} shiny</span>
+            <span style={{ color: "#E07A5F" }}> &bull; {stats.shinies} shiny</span>
           )}
         </p>
       </div>
@@ -218,7 +218,7 @@ export default async function StatsPage() {
           style={{ backgroundColor: "#1a1a1a", border: "1px solid #2e2e2e" }}
         >
           <p className="font-sans text-sm sm:text-base mb-3" style={{ color: "#9ca3af" }}>
-            <span style={{ color: "#4ade80" }} className="font-mono font-bold">
+            <span style={{ color: "#E07A5F" }} className="font-mono font-bold">
               {combinations.total.toLocaleString()}
             </span>{" "}
             unique looks possible —{" "}
@@ -235,7 +235,7 @@ export default async function StatsPage() {
               style={{
                 width: `${discoveredPct}%`,
                 height: "100%",
-                backgroundColor: "#4ade80",
+                backgroundColor: "#E07A5F",
                 borderRadius: "9999px",
                 transition: "width 0.3s ease",
               }}
@@ -299,7 +299,7 @@ export default async function StatsPage() {
             >
               <div
                 className="font-display text-xl sm:text-2xl font-bold mb-1"
-                style={{ color: "#4ade80" }}
+                style={{ color: "#E07A5F" }}
               >
                 {avg}
               </div>
@@ -404,7 +404,7 @@ export default async function StatsPage() {
         >
           {stats.mostCommonSpecies && (
             <p className="font-sans text-sm" style={{ color: "#9ca3af" }}>
-              <span style={{ color: "#4ade80" }}>▸</span>{" "}
+              <span style={{ color: "#E07A5F" }}>▸</span>{" "}
               Most common species is{" "}
               <span className="font-mono" style={{ color: "#e5e7eb" }}>
                 {stats.mostCommonSpecies.species}
@@ -418,7 +418,7 @@ export default async function StatsPage() {
           )}
 
           <p className="font-sans text-sm" style={{ color: "#9ca3af" }}>
-            <span style={{ color: "#4ade80" }}>▸</span>{" "}
+            <span style={{ color: "#E07A5F" }}>▸</span>{" "}
             Average wisdom across all buddies is{" "}
             <span className="font-mono" style={{ color: "#e5e7eb" }}>
               {stats.avgStats["WISDOM"] ?? 0}
@@ -426,7 +426,7 @@ export default async function StatsPage() {
           </p>
 
           <p className="font-sans text-sm" style={{ color: "#9ca3af" }}>
-            <span style={{ color: "#4ade80" }}>▸</span>{" "}
+            <span style={{ color: "#E07A5F" }}>▸</span>{" "}
             {stats.shinies === 0 ? (
               <span>No shiny buddies found yet!</span>
             ) : (
@@ -440,7 +440,7 @@ export default async function StatsPage() {
           </p>
 
           <p className="font-sans text-sm" style={{ color: "#9ca3af" }}>
-            <span style={{ color: "#4ade80" }}>▸</span>{" "}
+            <span style={{ color: "#E07A5F" }}>▸</span>{" "}
             {stats.legendaries === 0 ? (
               <span>No legendaries yet — only 1% chance!</span>
             ) : (
@@ -455,7 +455,7 @@ export default async function StatsPage() {
           </p>
 
           <p className="font-sans text-sm" style={{ color: "#9ca3af" }}>
-            <span style={{ color: "#4ade80" }}>▸</span>{" "}
+            <span style={{ color: "#E07A5F" }}>▸</span>{" "}
             <span className="font-mono" style={{ color: "#e5e7eb" }}>
               {combinations.discovered.toLocaleString()}
             </span>{" "}

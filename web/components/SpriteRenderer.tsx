@@ -14,7 +14,7 @@ export function SpriteRenderer({
   return (
     <pre
       className="font-mono text-xs sm:text-sm leading-tight select-none shrink-0"
-      style={{ whiteSpace: "pre", color: "#4ade80" }}
+      style={{ whiteSpace: "pre", color: "#E07A5F" }}
     >
       {lines.join("\n")}
     </pre>

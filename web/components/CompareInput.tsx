@@ -33,7 +33,7 @@ export function CompareInput({ username }: { username: string }) {
         style={{
           backgroundColor: "#1f1f1f",
           border: "1px solid #2e2e2e",
-          color: "#4ade80",
+          color: "#E07A5F",
         }}
       >
         Compare

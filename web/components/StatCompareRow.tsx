@@ -12,7 +12,7 @@ export function StatCompareRow({
   const aHigher = valueA > valueB;
   const bHigher = valueB > valueA;
 
-  const winColor = "#4ade80";
+  const winColor = "#E07A5F";
   const neutralColor = "#6b7280";
 
   return (

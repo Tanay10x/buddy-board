@@ -76,7 +76,7 @@ export async function GET(
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <span style={{ color: "#4ade80", fontSize: "24px", fontWeight: "bold" }}>
+            <span style={{ color: "#E07A5F", fontSize: "24px", fontWeight: "bold" }}>
               {buddy.total_stats}
             </span>
             <span style={{ color: "#6b7280", fontSize: "10px" }}>TOTAL</span>

@@ -21,7 +21,7 @@ function SpeciesCard({
 }) {
   const discovered = count > 0;
   const spriteLines = renderSprite(species, "·", "none");
-  const spriteColor = discovered ? "#4ade80" : "#333333";
+  const spriteColor = discovered ? "#E07A5F" : "#333333";
 
   const cardContent = (
     <div
@@ -84,7 +84,7 @@ export default async function DexPage() {
           BuddyDex
         </h1>
         <p className="font-sans text-sm" style={{ color: "#9ca3af" }}>
-          <span style={{ color: "#4ade80" }}>{totalDiscovered}</span>
+          <span style={{ color: "#E07A5F" }}>{totalDiscovered}</span>
           {" / "}
           {TOTAL_SPECIES} species discovered
           {totalBuddies > 0 && (
@@ -102,7 +102,7 @@ export default async function DexPage() {
           <span className="font-mono text-xs" style={{ color: "#6b7280" }}>
             Completion
           </span>
-          <span className="font-mono text-xs" style={{ color: "#4ade80" }}>
+          <span className="font-mono text-xs" style={{ color: "#E07A5F" }}>
             {pct}%
           </span>
         </div>
@@ -114,7 +114,7 @@ export default async function DexPage() {
             style={{
               width: `${pct}%`,
               height: "100%",
-              backgroundColor: "#4ade80",
+              backgroundColor: "#E07A5F",
               borderRadius: "9999px",
               transition: "width 0.4s ease",
             }}

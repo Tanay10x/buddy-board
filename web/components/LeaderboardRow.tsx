@@ -42,7 +42,7 @@ export function LeaderboardRow({ buddy, rank }: { buddy: Buddy; rank: number }) 
               href={`/u/${buddy.username}`}
               className="font-mono text-xs sm:text-sm truncate transition-colors duration-150"
               style={{ color: "#e5e7eb" }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = "#4ade80"; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = "#E07A5F"; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = "#e5e7eb"; }}
             >
               {buddy.username}
@@ -50,7 +50,7 @@ export function LeaderboardRow({ buddy, rank }: { buddy: Buddy; rank: number }) 
             {buddy.github_verified && (
               <span
                 className="text-xs font-bold shrink-0"
-                style={{ color: "#4ade80" }}
+                style={{ color: "#E07A5F" }}
                 title="GitHub Verified"
               >
                 ✓

@@ -147,7 +147,7 @@ export default async function ComparePage({ params }: Props) {
         <label className="block font-sans text-xs mb-2 uppercase tracking-wider" style={{ color: "#6b7280" }}>
           Share this matchup
         </label>
-        <code className="font-mono text-xs break-all block" style={{ color: "#4ade80" }}>
+        <code className="font-mono text-xs break-all block" style={{ color: "#E07A5F" }}>
           https://buddyboard.dev/compare/{user1}/{user2}
         </code>
       </div>
