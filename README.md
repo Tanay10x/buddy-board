@@ -1,3 +1,20 @@
+<p align="center">
+  <img src=".github/screenshots/home.png" alt="Buddy Board" width="720" />
+</p>
+
+<h1 align="center">Buddy Board</h1>
+
+<p align="center">
+  <strong>Pokédex-style trading cards for your Claude Code companion.</strong><br/>
+  Hatch your <code>/buddy</code>, get a unique ASCII art card, and compete on the global leaderboard.
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/buddy-board"><img src="https://img.shields.io/npm/v/buddy-board?color=%234ade80&label=npx%20buddy-board&style=flat-square" alt="npm" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License: MIT" /></a>
+  <a href="https://buddyboard.xyz"><img src="https://img.shields.io/badge/live-buddyboard.xyz-green?style=flat-square" alt="Live" /></a>
+</p>
+
 ```
                 .----.
                ( *  * )    B U D D Y  B O A R D
@@ -5,10 +22,6 @@
                 `----´     Competitive leaderboard & trading cards
                ~~~~~~~     for Claude Code /buddy companions
 ```
-
-[![npm](https://img.shields.io/npm/v/buddy-board?color=%234ade80&label=npx%20buddy-board&style=flat-square)](https://www.npmjs.com/package/buddy-board)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
-[![Live](https://img.shields.io/badge/live-buddyboard.xyz-green?style=flat-square)](https://buddyboard.xyz)
 
 ---
 
@@ -67,6 +80,22 @@ Requires Node.js 18+. If you use Claude Code, you already have it.
 
 ---
 
+## Add to Your GitHub Profile
+
+Show off your buddy in your GitHub profile README. Every profile view = a Buddy Board impression.
+
+```markdown
+<!-- Full trading card -->
+[![buddy](https://buddyboard.xyz/card/yourname)](https://buddyboard.xyz/u/yourname)
+
+<!-- Compact badge -->
+[![buddy](https://buddyboard.xyz/badge/yourname)](https://buddyboard.xyz/u/yourname)
+```
+
+Replace `yourname` with your Buddy Board username. That's it — one line in your README.
+
+---
+
 ## Screenshots
 
 <table>
@@ -112,14 +141,36 @@ Requires Node.js 18+. If you use Claude Code, you already have it.
 
 **Share** — One-click share to X with auto-generated OG card (1200x675). Copy-to-clipboard on all embed codes.
 
-**Embeddable Cards** — For your GitHub README:
+---
 
-```markdown
-# Full card
-[![buddy](https://buddyboard.xyz/card/yourname)](https://buddyboard.xyz/u/yourname)
+## Species Gallery
 
-# Compact badge
-[![buddy](https://buddyboard.xyz/badge/yourname)](https://buddyboard.xyz/u/yourname)
+18 species, 6 eye types, 8 hat types — **1,728 unique combinations**. Which one will you get?
+
+```
+    __            ({E}>          .----.         /\_/\          /^\  /^\
+  <(· )___        ||           ( ·  · )       ( ·   ·)       <  ·  ·  >
+   (  ._>        _(__)_        (      )       (  ω  )        (   ~~   )
+    `--´          ^^^^          `----´        (")_(")          `-vvvv-´
+   duck          goose          blob           cat             dragon
+
+   .----.        /\  /\        .---.          _,--._        ·    .--.
+  ( ·  · )      ((·)(·))      (·>·)         ( ·  · )        \  ( @ )
+  (______)      (  ><  )     /(   )\       /[______]\        \_`--´
+  /\/\/\/\       `----´       `---´         ``    ``        ~~~~~~~
+  octopus         owl         penguin        turtle           snail
+
+   .----.     }~(______)~{   n______n      n  ____  n       .[||].
+  / ·  · \    }~(· .. ·)~{  ( ·    · )     | |·  ·| |      [ ·  · ]
+  |      |     ( .--. )      (   oo   )     |_|    |_|      [ ==== ]
+  ~`~``~`~     (_/  \_)       `------´        |    |         `------´
+   ghost        axolotl       capybara       cactus           robot
+
+  (\__/)       .-o-OO-o-.    /\    /\
+ ( ·  · )     (__________)  ( ·    · )
+=(  ..  )=     |·  ·|       (   ..   )
+ (")__(")      |____|        `------´
+  rabbit       mushroom       chonk
 ```
 
 ---
@@ -159,6 +210,19 @@ Your buddy's species, rarity, stats, eyes, and hat are **deterministic** — com
 | OG Cards | `@vercel/og` (Satori) — 1200x675 PNG generation |
 | Fonts | Satoshi (display), Instrument Sans (body), JetBrains Mono (code) |
 | Analytics | Vercel Analytics |
+
+---
+
+## Contributing
+
+Contributions welcome! Some ideas to get started:
+
+- **Add a new species** — design ASCII art, add to `cli/roll.js` and `web/lib/sprites.ts`
+- **New hat or eye type** — expand the cosmetic system
+- **Card themes** — alternative visual treatments beyond the current rarity system
+- **Stats page visualizations** — charts, graphs, fun data breakdowns
+
+Check out issues labeled [`good first issue`](../../labels/good%20first%20issue) for beginner-friendly tasks.
 
 ---
 
