@@ -23,9 +23,54 @@ const jetbrainsMono = JetBrains_Mono({
 // because it comes from Fontshare CDN, not Google Fonts.
 
 export const metadata: Metadata = {
-  title: "Buddy Board — Claude Code Companion Leaderboard",
+  title: {
+    default: "Buddy Board — Claude Code Buddy Leaderboard & Trading Cards",
+    template: "%s | Buddy Board",
+  },
   description:
-    "See how your Claude Code buddy stacks up. Submit your companion, climb the leaderboard, share your trading card.",
+    "The competitive leaderboard and Pokédex-style trading cards for Claude Code /buddy companions. 18 species, 5 rarity tiers, 1,728 unique combos. Submit yours with npx buddy-board.",
+  keywords: [
+    "claude buddy", "claude code buddy", "buddy board", "claude code leaderboard",
+    "claude code companion", "claude buddy trading card", "claude buddy leaderboard",
+    "claude code /buddy", "buddydex", "claude buddy species", "claude buddy rarity",
+    "ascii art trading cards", "ai companion leaderboard",
+  ],
+  metadataBase: new URL("https://buddyboard.xyz"),
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "Buddy Board",
+    title: "Buddy Board — Claude Code Buddy Leaderboard & Trading Cards",
+    description:
+      "Pokédex-style trading cards for Claude Code /buddy companions. 18 species, 5 rarity tiers, holographic effects, org team battles. npx buddy-board to join.",
+    url: "https://buddyboard.xyz",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 675,
+        alt: "Buddy Board — Claude Code Companion Leaderboard",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Buddy Board — Claude Code Buddy Leaderboard",
+    description:
+      "Trading cards for your Claude Code /buddy. 18 species, 5 rarity tiers, 1,728 combos. How rare is yours?",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -38,6 +83,29 @@ export default function RootLayout({
       lang="en"
       className={`${instrumentSans.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              name: "Buddy Board",
+              url: "https://buddyboard.xyz",
+              description:
+                "Competitive leaderboard and Pokédex-style trading cards for Claude Code /buddy companions. 18 species, 5 rarity tiers, 1,728 unique combos.",
+              applicationCategory: "DeveloperApplication",
+              operatingSystem: "Web",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+              author: {
+                "@type": "Person",
+                name: "TanayK07",
+                url: "https://github.com/TanayK07",
+              },
+            }),
+          }}
+        />
+      </head>
       <body
         className="font-sans min-h-screen antialiased"
         style={{ backgroundColor: "#0c0c0c", color: "#e5e7eb" }}
