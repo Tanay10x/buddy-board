@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 
 export const revalidate = 300;
 
-const SITE_URL = "https://web-livid-eta-79.vercel.app";
+const SITE_URL = "https://buddyboard.xyz";
 
 type Props = { params: Promise<{ username: string }> };
 

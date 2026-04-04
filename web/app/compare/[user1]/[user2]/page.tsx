@@ -148,7 +148,7 @@ export default async function ComparePage({ params }: Props) {
           Share this matchup
         </label>
         <code className="font-mono text-xs break-all block" style={{ color: "#4ade80" }}>
-          https://buddyboard.dev/compare/{user1}/{user2}
+          https://buddyboard.xyz/compare/{user1}/{user2}
         </code>
       </div>
     </div>

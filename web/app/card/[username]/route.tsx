@@ -174,7 +174,7 @@ export async function GET(
               <span style={{ color: "#4ade80", marginLeft: "12px" }}>✓ GitHub</span>
             ) : null}
           </span>
-          <span style={{ color: "#6b7280", letterSpacing: "0.04em" }}>buddyboard.dev</span>
+          <span style={{ color: "#6b7280", letterSpacing: "0.04em" }}>buddyboard.xyz</span>
         </div>
       </div>
     ),

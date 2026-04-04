@@ -6,7 +6,7 @@ import { roll } from "./roll.js";
 import { submitBuddy, verifyGithub, verifyOrgMembership, claimOrg } from "./submit.js";
 import { STAT_NAMES } from "./types.js";
 
-const SITE_URL = "https://buddyboard.dev";
+const SITE_URL = "https://buddyboard.xyz";
 
 // ── ANSI colors ──────────────────────────────────────────────────────────────
 const c = {

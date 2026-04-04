@@ -16,6 +16,12 @@
     "config.js",
     "submit.js"
   ],
-  "keywords": ["claude", "buddy", "leaderboard"],
-  "license": "MIT"
+  "keywords": ["claude", "claude-code", "buddy", "leaderboard", "companion", "trading-card"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TanayK07/buddy-board"
+  },
+  "homepage": "https://buddyboard.xyz",
+  "author": "TanayK07"
 }
