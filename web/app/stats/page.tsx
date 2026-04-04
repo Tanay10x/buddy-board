@@ -1,5 +1,7 @@
-import { getGlobalStats } from "@/lib/queries";
+import { Suspense } from "react";
+import { getGlobalStats, getOrgSlugs } from "@/lib/queries";
 import { RARITY_COLORS } from "@/lib/constants";
+import { OrgStatsFilter } from "@/components/OrgStatsFilter";
 import type { Buddy, Rarity, StatName } from "@/lib/types";
 
 export const revalidate = 300;
@@ -178,8 +180,16 @@ function RareCard({ buddy }: { buddy: Buddy }) {
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
-export default async function StatsPage() {
-  const stats = await getGlobalStats();
+export default async function StatsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ org?: string }>;
+}) {
+  const { org: orgSlug } = await searchParams;
+  const [stats, orgSlugs] = await Promise.all([
+    getGlobalStats(orgSlug),
+    getOrgSlugs(),
+  ]);
   const { combinations } = stats;
   const discoveredPct =
     combinations.total > 0
@@ -201,14 +211,22 @@ export default async function StatsPage() {
           className="font-display text-2xl sm:text-3xl md:text-4xl font-black mb-2 tracking-tight"
           style={{ color: "#e5e7eb" }}
         >
-          Global Stats
+          {orgSlug ? (
+            <><span style={{ color: "#4ade80" }}>{orgSlug}</span> Stats</>
+          ) : (
+            "Global Stats"
+          )}
         </h1>
-        <p className="font-sans text-sm" style={{ color: "#6b7280" }}>
-          {stats.totalBuddies} {stats.totalBuddies === 1 ? "buddy" : "buddies"} registered
+        <p className="font-sans text-sm mb-4" style={{ color: "#6b7280" }}>
+          {stats.totalBuddies} {stats.totalBuddies === 1 ? "buddy" : "buddies"}
+          {orgSlug ? ` in ${orgSlug}` : " registered"}
           {stats.shinies > 0 && (
             <span style={{ color: "#4ade80" }}> &bull; {stats.shinies} shiny</span>
           )}
         </p>
+        <Suspense>
+          <OrgStatsFilter orgSlugs={orgSlugs} />
+        </Suspense>
       </div>
 
       {/* ── Combinations Counter ─────────────────────────── */}

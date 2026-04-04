@@ -242,7 +242,7 @@ export async function getAllBuddiesLight(): Promise<
   return data;
 }
 
-export async function getGlobalStats(): Promise<{
+export async function getGlobalStats(orgSlug?: string): Promise<{
   totalBuddies: number;
   speciesCounts: Record<string, number>;
   rarityCounts: Record<string, number>;
@@ -257,7 +257,26 @@ export async function getGlobalStats(): Promise<{
   rarestFinds: Buddy[];
   combinations: { total: number; discovered: number };
 }> {
-  const { data, error } = await supabase.from("buddies_public").select("*");
+  let data: any[] | null = null;
+  let error: any = null;
+
+  if (orgSlug) {
+    // Fetch org members only
+    const org = await getOrgBySlug(orgSlug);
+    if (org) {
+      const result = await supabase
+        .from("org_members")
+        .select("*")
+        .eq("org_id", org.id);
+      data = result.data;
+      error = result.error;
+    }
+  } else {
+    const result = await supabase.from("buddies_public").select("*");
+    data = result.data;
+    error = result.error;
+  }
+
   if (error || !data) {
     return {
       totalBuddies: 0,
