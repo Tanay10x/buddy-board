@@ -16,6 +16,9 @@ export type Buddy = {
   username: string;
   github_username: string | null;
   github_verified: boolean;
+  github_avatar_url: string | null;
+  github_bio: string | null;
+  github_profile_url: string | null;
   name: string;
   personality: string;
   hatched_at: number;

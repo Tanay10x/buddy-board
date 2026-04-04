@@ -50,6 +50,36 @@ export default async function ProfilePage({ params }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto">
+      {/* ── GitHub Profile Banner ────────────────────────── */}
+      {buddy.github_avatar_url && (
+        <div
+          className="flex items-center gap-3 rounded-lg p-3 sm:p-4 mb-5"
+          style={{ backgroundColor: "#1a1a1a", border: "1px solid #2e2e2e" }}
+        >
+          <img
+            src={buddy.github_avatar_url}
+            alt={buddy.github_username ?? buddy.username}
+            className="w-10 h-10 rounded-full shrink-0"
+          />
+          <div className="min-w-0">
+            <a
+              href={buddy.github_profile_url ?? `https://github.com/${buddy.github_username}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-sm font-bold transition-colors duration-150"
+              style={{ color: "#4ade80" }}
+            >
+              @{buddy.github_username}
+            </a>
+            {buddy.github_bio && (
+              <p className="font-sans text-xs mt-0.5 truncate" style={{ color: "#9ca3af" }}>
+                {buddy.github_bio}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* ── Buddy Card ───────────────────────────────────── */}
       <div className="flex justify-center">
         <BuddyCard buddy={buddy} />

@@ -105,9 +105,21 @@ export function BuddyCard({ buddy }: { buddy: Buddy }) {
         {/* Footer */}
         <div className="flex items-center justify-between mt-4 sm:mt-5 pt-3 sm:pt-4" style={{ borderTop: "1px solid #1f1f1f" }}>
           <div className="flex items-center gap-2 font-mono text-xs">
-            <span style={{ color: "#9ca3af" }}>
-              @{buddy.username}
-            </span>
+            {buddy.github_profile_url ? (
+              <a
+                href={buddy.github_profile_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#9ca3af" }}
+                className="transition-colors duration-150 hover:text-green-400"
+              >
+                @{buddy.username}
+              </a>
+            ) : (
+              <span style={{ color: "#9ca3af" }}>
+                @{buddy.username}
+              </span>
+            )}
             {buddy.github_verified && (
               <span
                 className="inline-flex items-center gap-0.5 text-xs font-bold"

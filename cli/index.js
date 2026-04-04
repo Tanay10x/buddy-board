@@ -90,10 +90,18 @@ async function main() {
 
   // 3. Verify GitHub (optional)
   let githubVerified = false;
+  let githubAvatarUrl = null;
+  let githubBio = null;
+  let githubProfileUrl = null;
   if (args.github) {
     console.log(`Verifying GitHub user @${args.github}...`);
-    githubVerified = await verifyGithub(args.github);
-    if (!githubVerified) {
+    const ghResult = await verifyGithub(args.github);
+    githubVerified = ghResult.verified;
+    if (githubVerified) {
+      githubAvatarUrl = ghResult.avatar_url;
+      githubBio = ghResult.bio;
+      githubProfileUrl = ghResult.profile_url;
+    } else {
       console.warn(`Warning: GitHub user '${args.github}' not found. Continuing without verification.`);
     }
   }
@@ -116,6 +124,9 @@ async function main() {
     stats: bones.stats,
     github_username: args.github || null,
     github_verified: githubVerified,
+    github_avatar_url: githubAvatarUrl,
+    github_bio: githubBio,
+    github_profile_url: githubProfileUrl,
   };
 
   const result = await submitBuddy({

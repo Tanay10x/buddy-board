@@ -4,9 +4,16 @@ const SUPABASE_ANON_KEY = process.env.BUDDY_BOARD_SUPABASE_KEY || "eyJhbGciOiJIU
 export async function verifyGithub(username) {
   try {
     const res = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}`);
-    return res.status === 200;
+    if (res.status !== 200) return { verified: false };
+    const data = await res.json();
+    return {
+      verified: true,
+      avatar_url: data.avatar_url || null,
+      bio: data.bio || null,
+      profile_url: data.html_url || null,
+    };
   } catch {
-    return false;
+    return { verified: false };
   }
 }
 
@@ -23,6 +30,9 @@ export async function submitBuddy({ username, token, buddy }) {
       p_token: token || null,
       p_github_username: buddy.github_username || null,
       p_github_verified: buddy.github_verified || false,
+      p_github_avatar_url: buddy.github_avatar_url || null,
+      p_github_bio: buddy.github_bio || null,
+      p_github_profile_url: buddy.github_profile_url || null,
       p_name: buddy.name,
       p_personality: buddy.personality,
       p_hatched_at: buddy.hatched_at,

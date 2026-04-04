@@ -23,12 +23,20 @@ export function LeaderboardRow({ buddy, rank }: { buddy: Buddy; rank: number }) 
       <td className="py-3 px-2 sm:px-4">
         <div className="flex items-center gap-2 sm:gap-2.5">
           {/* Avatar circle */}
-          <div
-            className="w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center shrink-0 text-xs font-bold font-mono"
-            style={{ backgroundColor: "#242424", border: "1px solid #2e2e2e", color: "#9ca3af" }}
-          >
-            {buddy.username[0].toUpperCase()}
-          </div>
+          {buddy.github_avatar_url ? (
+            <img
+              src={buddy.github_avatar_url}
+              alt=""
+              className="w-6 h-6 sm:w-7 sm:h-7 rounded-full shrink-0"
+            />
+          ) : (
+            <div
+              className="w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center shrink-0 text-xs font-bold font-mono"
+              style={{ backgroundColor: "#242424", border: "1px solid #2e2e2e", color: "#9ca3af" }}
+            >
+              {buddy.username[0].toUpperCase()}
+            </div>
+          )}
           <div className="flex items-center gap-1.5 min-w-0">
             <Link
               href={`/u/${buddy.username}`}
