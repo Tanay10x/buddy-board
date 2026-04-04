@@ -81,6 +81,34 @@ export async function getBuddyRank(username: string): Promise<{
   return { overall, perStat, total: all.length };
 }
 
+export async function getDexOverview(): Promise<{
+  speciesCounts: Record<string, number>;
+  totalDiscovered: number;
+  totalBuddies: number;
+}> {
+  const { data, error } = await supabase.from("buddies_public").select("species");
+  if (error || !data) return { speciesCounts: {}, totalDiscovered: 0, totalBuddies: 0 };
+
+  const speciesCounts: Record<string, number> = {};
+  for (const row of data as { species: string }[]) {
+    speciesCounts[row.species] = (speciesCounts[row.species] || 0) + 1;
+  }
+
+  const totalDiscovered = Object.values(speciesCounts).filter((c) => c > 0).length;
+  return { speciesCounts, totalDiscovered, totalBuddies: data.length };
+}
+
+export async function getSpeciesBuddies(species: string): Promise<Buddy[]> {
+  const { data, error } = await supabase
+    .from("buddies_public")
+    .select("*")
+    .eq("species", species)
+    .order("total_stats", { ascending: false });
+
+  if (error || !data) return [];
+  return data as Buddy[];
+}
+
 export async function getGlobalStats(): Promise<{
   totalBuddies: number;
   speciesCounts: Record<string, number>;
