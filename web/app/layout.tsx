@@ -74,15 +74,10 @@ export default function RootLayout({
                 Stats
               </a>
               <a
-                href="/submit"
-                className="px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-medium font-mono transition-all"
-                style={{
-                  backgroundColor: "#1a1a1a",
-                  border: "1px solid #2e2e2e",
-                  color: "#4ade80",
-                }}
+                href="/dex"
+                className="hover:text-white transition-colors"
               >
-                + Submit
+                BuddyDex
               </a>
             </nav>
           </div>
@@ -103,7 +98,7 @@ export default function RootLayout({
             </span>
             <div className="flex items-center gap-5">
               <a
-                href="/submit"
+                href="/#hero"
                 className="hover:text-white transition-colors"
                 style={{ color: "#9ca3af" }}
               >

@@ -35,12 +35,12 @@ export async function GET(
         style={{
           display: "flex",
           flexDirection: "column",
-          width: "600px",
-          height: "340px",
+          width: "1200px",
+          height: "675px",
           backgroundColor: "#0c0c0c",
-          border: `3px solid ${borderColor}`,
-          borderRadius: "12px",
-          padding: "20px 24px",
+          border: `6px solid ${borderColor}`,
+          borderRadius: "24px",
+          padding: "40px 48px",
           fontFamily: "JetBrains Mono",
           color: "#e5e7eb",
           boxSizing: "border-box",
@@ -52,35 +52,35 @@ export async function GET(
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "14px",
-            paddingBottom: "10px",
+            marginBottom: "28px",
+            paddingBottom: "20px",
             borderBottom: `1px solid #1f1f1f`,
           }}
         >
-          <span style={{ color: borderColor, fontSize: "13px", fontWeight: "bold", letterSpacing: "0.05em" }}>
+          <span style={{ color: borderColor, fontSize: "26px", fontWeight: "bold", letterSpacing: "0.05em" }}>
             {stars} {buddy.rarity.toUpperCase()}
           </span>
-          <span style={{ color: "#6b7280", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          <span style={{ color: "#6b7280", fontSize: "24px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
             {buddy.species}
             {buddy.shiny ? " ✦ SHINY" : ""}
           </span>
         </div>
 
         {/* ── Body: sprite + name/personality ─────────────── */}
-        <div style={{ display: "flex", gap: "20px", marginBottom: "14px", flex: "1 0 auto" }}>
+        <div style={{ display: "flex", gap: "40px", marginBottom: "28px", flex: "1 0 auto" }}>
           {/* Sprite */}
           <div
             style={{
               display: "flex",
               backgroundColor: "#1a1a1a",
-              borderRadius: "8px",
-              padding: "10px 12px",
+              borderRadius: "16px",
+              padding: "20px 24px",
               border: `1px solid #2e2e2e`,
             }}
           >
             <pre
               style={{
-                fontSize: "10.5px",
+                fontSize: "21px",
                 lineHeight: "1.25",
                 color: "#4ade80",
                 margin: 0,
@@ -95,10 +95,10 @@ export async function GET(
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
             <span
               style={{
-                fontSize: "20px",
+                fontSize: "40px",
                 fontWeight: "bold",
                 color: "#e5e7eb",
-                marginBottom: "6px",
+                marginBottom: "12px",
                 letterSpacing: "-0.01em",
               }}
             >
@@ -106,35 +106,35 @@ export async function GET(
             </span>
             <span
               style={{
-                fontSize: "11px",
+                fontSize: "22px",
                 color: "#9ca3af",
                 fontStyle: "italic",
                 lineHeight: "1.45",
-                maxWidth: "280px",
+                maxWidth: "560px",
               }}
             >
-              &quot;{buddy.personality.slice(0, 110)}{buddy.personality.length > 110 ? "…" : ""}&quot;
+              &quot;{buddy.personality.slice(0, 110)}{buddy.personality.length > 110 ? "..." : ""}&quot;
             </span>
           </div>
         </div>
 
         {/* ── Stat bars ────────────────────────────────────── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px", marginBottom: "12px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
           {STAT_NAMES.map((stat) => {
             const value = buddy.stats[stat];
             const pct = (value / 100) * 100;
             return (
-              <div key={stat} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "11px" }}>
-                <span style={{ width: "76px", color: "#9ca3af", fontSize: "10px", letterSpacing: "0.05em" }}>
+              <div key={stat} style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "22px" }}>
+                <span style={{ width: "152px", color: "#9ca3af", fontSize: "20px", letterSpacing: "0.05em" }}>
                   {stat}
                 </span>
                 {/* Bar track */}
                 <div
                   style={{
                     flex: 1,
-                    height: "6px",
+                    height: "12px",
                     backgroundColor: "#1a1a1a",
-                    borderRadius: "3px",
+                    borderRadius: "6px",
                     display: "flex",
                     overflow: "hidden",
                   }}
@@ -145,11 +145,11 @@ export async function GET(
                       width: `${pct}%`,
                       height: "100%",
                       backgroundColor: borderColor,
-                      borderRadius: "3px",
+                      borderRadius: "6px",
                     }}
                   />
                 </div>
-                <span style={{ width: "26px", textAlign: "right", color: "#e5e7eb", fontSize: "11px" }}>
+                <span style={{ width: "52px", textAlign: "right", color: "#e5e7eb", fontSize: "22px" }}>
                   {value}
                 </span>
               </div>
@@ -163,15 +163,15 @@ export async function GET(
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            paddingTop: "8px",
+            paddingTop: "16px",
             borderTop: "1px solid #1f1f1f",
-            fontSize: "10px",
+            fontSize: "20px",
           }}
         >
           <span style={{ color: "#9ca3af" }}>
             @{buddy.username}
             {buddy.github_verified ? (
-              <span style={{ color: "#4ade80", marginLeft: "6px" }}>✓ GitHub</span>
+              <span style={{ color: "#4ade80", marginLeft: "12px" }}>✓ GitHub</span>
             ) : null}
           </span>
           <span style={{ color: "#6b7280", letterSpacing: "0.04em" }}>buddyboard.dev</span>
@@ -179,8 +179,8 @@ export async function GET(
       </div>
     ),
     {
-      width: 600,
-      height: 340,
+      width: 1200,
+      height: 675,
       fonts: [
         {
           name: "JetBrains Mono",

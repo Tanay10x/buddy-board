@@ -1,4 +1,5 @@
 import { LeaderboardTable } from "@/components/LeaderboardTable";
+import { CopyButton } from "@/components/CopyButton";
 import { getLeaderboard } from "@/lib/queries";
 
 export const revalidate = 60;
@@ -22,7 +23,7 @@ export default async function HomePage() {
 
         {/* Command prompt box */}
         <div
-          className="inline-block rounded-lg px-3 sm:px-5 py-2.5 sm:py-3"
+          className="inline-flex items-center gap-3 rounded-lg px-3 sm:px-5 py-2.5 sm:py-3"
           style={{
             backgroundColor: "#1a1a1a",
             border: "1px solid #2e2e2e",
@@ -31,6 +32,7 @@ export default async function HomePage() {
           <code className="font-mono text-xs sm:text-sm" style={{ color: "#4ade80" }}>
             $ npx buddy-board --username yourname
           </code>
+          <CopyButton text="npx buddy-board --username yourname" />
         </div>
       </section>
 
