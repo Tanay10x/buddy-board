@@ -17,6 +17,42 @@ export async function verifyGithub(username) {
   }
 }
 
+export async function verifyOrgMembership(githubUsername, orgSlug) {
+  if (!githubUsername) return { verified: false, reason: "no_github" };
+  try {
+    const res = await fetch(
+      `https://api.github.com/orgs/${encodeURIComponent(orgSlug)}/public_members/${encodeURIComponent(githubUsername)}`,
+      { headers: { "Accept": "application/vnd.github+json", "User-Agent": "buddy-board-cli" } }
+    );
+    if (res.status === 204) return { verified: true, reason: "public_member" };
+    return { verified: false, reason: "not_public_member" };
+  } catch {
+    return { verified: false, reason: "network_error" };
+  }
+}
+
+export async function claimOrg({ username, token, orgSlug, orgVerified }) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/claim_org`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+    },
+    body: JSON.stringify({
+      p_username: username,
+      p_token: token,
+      p_org_slug: orgSlug.toLowerCase(),
+      p_org_verified: orgVerified,
+    }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    return { error: err.message || `Server error: ${res.status}` };
+  }
+  return { success: true };
+}
+
 export async function submitBuddy({ username, token, buddy }) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/submit_buddy`, {
     method: "POST",

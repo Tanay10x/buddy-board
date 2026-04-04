@@ -2,7 +2,7 @@
 
 import { readClaudeConfig, readBuddyBoardToken, saveBuddyBoardToken } from "./config.js";
 import { roll } from "./roll.js";
-import { submitBuddy, verifyGithub } from "./submit.js";
+import { submitBuddy, verifyGithub, verifyOrgMembership, claimOrg } from "./submit.js";
 
 const SITE_URL = "https://buddyboard.dev";
 
@@ -14,6 +14,9 @@ function parseArgs(args) {
       i++;
     } else if (args[i] === "--github" && args[i + 1]) {
       result.github = args[i + 1];
+      i++;
+    } else if (args[i] === "--org" && args[i + 1]) {
+      result.org = args[i + 1].toLowerCase();
       i++;
     } else if (args[i] === "--help" || args[i] === "-h") {
       result.help = true;
@@ -33,6 +36,7 @@ Usage:
 Options:
   --username  Your unique leaderboard username (3-20 chars, a-z, 0-9, hyphens)
   --github    Your GitHub username (optional, adds a verified badge)
+  --org       GitHub org slug to join (optional, links your buddy to a team)
   --help      Show this help message
 `);
 }
@@ -46,15 +50,17 @@ function validateUsername(username) {
   return null;
 }
 
-function printSuccess(username) {
+function printSuccess(username, org) {
   const viewUrl = `${SITE_URL}/u/${username}`;
   const cardUrl = `${SITE_URL}/card/${username}`;
+  const teamUrl = org ? `${SITE_URL}/org/${org}` : null;
   console.log(`
 ╭──────────────────────────────────────────────╮
 │ ✓ Buddy submitted!                           │
 │                                               │
 │ View: ${viewUrl.padEnd(38)}│
-│ Card: ${cardUrl.padEnd(38)}│
+│ Card: ${cardUrl.padEnd(38)}│${teamUrl ? `
+│ Team: ${teamUrl.padEnd(38)}│` : ""}
 │                                               │
 │ Embed in your README:                         │
 │ ![buddy](${cardUrl})       │
@@ -141,6 +147,7 @@ async function main() {
   }
 
   // 6. Save token (only on first submit)
+  const savedToken = result.token || token;
   if (result.token) {
     saveBuddyBoardToken({
       username: args.username,
@@ -149,7 +156,37 @@ async function main() {
     });
   }
 
-  printSuccess(args.username);
+  // 7. Claim org membership (if --org was provided)
+  if (args.org) {
+    let orgVerified = false;
+
+    if (args.github && githubVerified) {
+      console.log(`Verifying GitHub org membership (@${args.github} in ${args.org})...`);
+      const orgCheck = await verifyOrgMembership(args.github, args.org);
+      orgVerified = orgCheck.verified;
+      if (orgVerified) {
+        console.log(`GitHub org membership verified.`);
+      } else {
+        console.log(`Note: GitHub org membership not publicly visible (reason: ${orgCheck.reason}). Joining as unverified.`);
+      }
+    }
+
+    console.log(`Joining org '${args.org}'...`);
+    const orgResult = await claimOrg({
+      username: args.username,
+      token: savedToken,
+      orgSlug: args.org,
+      orgVerified,
+    });
+
+    if (orgResult.error) {
+      console.warn(`Warning: Could not join org '${args.org}': ${orgResult.error}`);
+    } else {
+      console.log(`Joined org '${args.org}'${orgVerified ? " (verified)" : ""}.`);
+    }
+  }
+
+  printSuccess(args.username, args.org);
 }
 
 main().catch((err) => {
