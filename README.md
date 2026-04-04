@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/screenshots/home.png" alt="Buddy Board" width="720" />
+  <img src=".github/screenshots/hero.gif" alt="Buddy Board" width="720" />
 </p>
 
 <h1 align="center">Buddy Board</h1>
