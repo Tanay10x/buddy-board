@@ -4,7 +4,7 @@
   "description": "Submit your Claude Code buddy to the leaderboard",
   "type": "module",
   "bin": {
-    "buddy-board": "./index.js"
+    "buddy-board": "index.js"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -16,11 +16,18 @@
     "config.js",
     "submit.js"
   ],
-  "keywords": ["claude", "claude-code", "buddy", "leaderboard", "companion", "trading-card"],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "buddy",
+    "leaderboard",
+    "companion",
+    "trading-card"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TanayK07/buddy-board"
+    "url": "git+https://github.com/TanayK07/buddy-board.git"
   },
   "homepage": "https://buddyboard.xyz",
   "author": "TanayK07"
