@@ -1,6 +1,6 @@
 import { LeaderboardTable } from "@/components/LeaderboardTable";
 import { CopyButton } from "@/components/CopyButton";
-import { getLeaderboard } from "@/lib/queries";
+import { getLeaderboard, getOrgSlugs, getAllOrgMemberships } from "@/lib/queries";
 import { renderSprite } from "@/lib/sprites";
 import { RARITY_COLORS, RARITY_STARS, STAT_NAMES } from "@/lib/constants";
 import type { Species, Eye, Hat, Rarity, StatName } from "@/lib/types";
@@ -32,7 +32,11 @@ const FEATURED = [
 ];
 
 export default async function HomePage() {
-  const buddies = await getLeaderboard();
+  const [buddies, orgSlugs, orgMembers] = await Promise.all([
+    getLeaderboard(),
+    getOrgSlugs(),
+    getAllOrgMemberships(),
+  ]);
 
   return (
     <div>
@@ -221,8 +225,21 @@ export default async function HomePage() {
               </code>
               <CopyButton text="npx buddy-board --username yourname --github yourgithub" />
             </div>
-            <p className="font-mono text-xs mt-1" style={{ color: "#6b7280" }}>
-              Adding --github links your GitHub profile and adds a verified badge.
+            <div
+              className="flex items-center gap-3 rounded-md px-3 py-2"
+              style={{ backgroundColor: "#242424", border: "1px solid #2e2e2e" }}
+            >
+              <code className="font-mono text-xs flex-1" style={{ color: "#4ade80" }}>
+                $ npx buddy-board --username yourname --github yourgithub --org your-org
+              </code>
+              <CopyButton text="npx buddy-board --username yourname --github yourgithub --org your-org" />
+            </div>
+            <p className="font-sans text-xs mt-2" style={{ color: "#6b7280", lineHeight: 1.6 }}>
+              <span className="font-mono" style={{ color: "#9ca3af" }}>--github</span> links your GitHub profile and adds a verified badge.
+              {" "}
+              <span className="font-mono" style={{ color: "#9ca3af" }}>--org</span> joins your team&apos;s dashboard at{" "}
+              <span className="font-mono" style={{ color: "#4ade80" }}>/org/your-org</span>.
+              Org verification uses GitHub public membership — unverified members still appear on the team board.
             </p>
           </div>
         </div>
@@ -238,7 +255,7 @@ export default async function HomePage() {
             {buddies.length} {buddies.length === 1 ? "buddy" : "buddies"} registered
           </p>
         </div>
-        <LeaderboardTable buddies={buddies} />
+        <LeaderboardTable buddies={buddies} orgSlugs={orgSlugs} orgMembers={orgMembers} />
       </section>
     </div>
   );

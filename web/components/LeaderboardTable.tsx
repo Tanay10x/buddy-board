@@ -41,10 +41,17 @@ function sortBuddies(buddies: Buddy[], sortBy: SortField): Buddy[] {
 const selectClasses =
   "rounded-md px-3 py-1.5 text-xs font-mono outline-none cursor-pointer appearance-none";
 
-export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
+interface LeaderboardTableProps {
+  buddies: Buddy[];
+  orgSlugs?: string[];
+  orgMembers?: Record<string, string[]>;
+}
+
+export function LeaderboardTable({ buddies, orgSlugs = [], orgMembers = {} }: LeaderboardTableProps) {
   const [sortBy, setSortBy] = useState<SortField>("total_stats");
   const [filterSpecies, setFilterSpecies] = useState("");
   const [filterRarity, setFilterRarity] = useState("");
+  const [filterOrg, setFilterOrg] = useState("");
   const [search, setSearch] = useState("");
 
   let filtered = buddies;
@@ -58,6 +65,10 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
   }
   if (filterSpecies) filtered = filtered.filter((b) => b.species === filterSpecies);
   if (filterRarity) filtered = filtered.filter((b) => b.rarity === filterRarity);
+  if (filterOrg) {
+    const members = orgMembers[filterOrg] ?? [];
+    filtered = filtered.filter((b) => members.includes(b.username));
+  }
   const sorted = sortBuddies(filtered, sortBy);
 
   return (
@@ -117,6 +128,23 @@ export function LeaderboardTable({ buddies }: { buddies: Buddy[] }) {
             </option>
           ))}
         </select>
+
+        {/* Org filter */}
+        {orgSlugs.length > 0 && (
+          <select
+            value={filterOrg}
+            onChange={(e) => setFilterOrg(e.target.value)}
+            className={selectClasses}
+            style={{ backgroundColor: "#242424", color: "#9ca3af", border: "1px solid #2e2e2e" }}
+          >
+            <option value="">All Orgs</option>
+            {orgSlugs.map((slug) => (
+              <option key={slug} value={slug}>
+                {slug}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
 
       {/* Table */}

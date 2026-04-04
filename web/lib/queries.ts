@@ -198,6 +198,39 @@ export async function getBuddyOrgs(username: string): Promise<Array<{ slug: stri
   return orgs;
 }
 
+export async function getOrgSlugs(): Promise<string[]> {
+  const { data, error } = await supabase
+    .from("orgs_public")
+    .select("slug")
+    .eq("unlisted", false)
+    .order("member_count", { ascending: false });
+  if (error || !data) return [];
+  return data.map((o: { slug: string }) => o.slug);
+}
+
+export async function getAllOrgMemberships(): Promise<Record<string, string[]>> {
+  const { data, error } = await supabase
+    .from("org_members")
+    .select("org_id, username");
+  if (error || !data) return {};
+
+  // Need org slugs too
+  const { data: orgs } = await supabase.from("orgs_public").select("id, slug");
+  if (!orgs) return {};
+
+  const orgIdToSlug: Record<string, string> = {};
+  for (const o of orgs) orgIdToSlug[o.id] = o.slug;
+
+  const result: Record<string, string[]> = {};
+  for (const row of data as any[]) {
+    const slug = orgIdToSlug[row.org_id];
+    if (!slug) continue;
+    if (!result[slug]) result[slug] = [];
+    result[slug].push(row.username);
+  }
+  return result;
+}
+
 export async function getAllBuddiesLight(): Promise<
   { username: string; species: string; created_at: string }[]
 > {

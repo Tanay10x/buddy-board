@@ -93,6 +93,23 @@ export default async function OrgDashboardPage({ params }: Props) {
         </div>
       </div>
 
+      {/* Unverified disclaimer */}
+      {org.verified_member_count === 0 && org.member_count > 0 && (
+        <div
+          className="rounded-lg p-3 sm:p-4 mb-6 flex gap-3"
+          style={{ backgroundColor: "rgba(234,179,8,0.06)", border: "1px solid rgba(234,179,8,0.2)" }}
+        >
+          <span style={{ color: "#eab308", fontSize: "14px", flexShrink: 0 }}>&#9432;</span>
+          <p className="font-sans text-xs" style={{ color: "#9ca3af", lineHeight: 1.6 }}>
+            All members in this org are currently <strong style={{ color: "#e5e7eb" }}>unverified</strong>.
+            Org verification checks GitHub public membership — if your org membership is set to private on GitHub,
+            you&apos;ll appear unverified. To verify: go to{" "}
+            <span className="font-mono" style={{ color: "#4ade80" }}>github.com/orgs/{org.slug}/people</span>{" "}
+            and set your membership visibility to public.
+          </p>
+        </div>
+      )}
+
       {/* Team Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
         {/* Species Distribution */}
