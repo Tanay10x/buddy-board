@@ -67,6 +67,7 @@ export default async function HomePage() {
                   boxShadow: isLegendary
                     ? `0 0 24px ${color}30, inset 0 0 20px ${color}08`
                     : undefined,
+                  animation: isLegendary ? "legendary-pulse 3s ease-in-out infinite" : undefined,
                 }}
               >
                 {/* Scanlines */}
@@ -79,6 +80,21 @@ export default async function HomePage() {
                     zIndex: 1,
                   }}
                 />
+
+                {/* Holographic shimmer for legendary */}
+                {isLegendary && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      background: "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.04) 30%, rgba(147,197,253,0.08) 40%, rgba(196,181,253,0.1) 50%, rgba(134,239,172,0.08) 60%, rgba(255,255,255,0.04) 70%, transparent 80%)",
+                      backgroundSize: "200% 100%",
+                      animation: "holo-shimmer 4s ease-in-out infinite",
+                      pointerEvents: "none",
+                      zIndex: 2,
+                    }}
+                  />
+                )}
 
                 <div className="relative z-10 p-5 sm:p-6">
                   {/* Header: rarity + species */}
