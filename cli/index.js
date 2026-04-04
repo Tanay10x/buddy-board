@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { createInterface } from "node:readline/promises";
 import { readClaudeConfig, readBuddyBoardToken, saveBuddyBoardToken } from "./config.js";
 import { roll } from "./roll.js";
 import { submitBuddy, verifyGithub, verifyOrgMembership, claimOrg } from "./submit.js";
@@ -30,19 +31,19 @@ function printHelp() {
 buddy-board — Submit your Claude Code buddy to the leaderboard
 
 Usage:
-  npx buddy-board --username <name>
-  npx buddy-board --username <name> --github <github-user>
+  npx buddy-board                     Interactive mode (recommended)
+  npx buddy-board --username <name>   With flags
 
 Options:
   --username  Your unique leaderboard username (3-20 chars, a-z, 0-9, hyphens)
-  --github    Your GitHub username (optional, adds a verified badge)
-  --org       GitHub org slug to join (optional, links your buddy to a team)
+  --github    Your GitHub username (optional, adds verified badge + avatar)
+  --org       Organization slug to join (optional, links to a team dashboard)
   --help      Show this help message
 `);
 }
 
 function validateUsername(username) {
-  if (!username) return "Username is required. Use --username <name>";
+  if (!username) return "Username is required.";
   if (username.length < 3 || username.length > 20)
     return "Username must be 3-20 characters.";
   if (!/^[a-z0-9-]+$/.test(username))
@@ -68,12 +69,60 @@ function printSuccess(username, org) {
 `);
 }
 
+async function interactivePrompt() {
+  const rl = createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  console.log(`
+╭──────────────────────────────────────────────╮
+│  🎮 Welcome to Buddy Board!                  │
+│  Let's submit your buddy to the leaderboard. │
+╰──────────────────────────────────────────────╯
+`);
+
+  // Username (required)
+  let username = "";
+  while (true) {
+    const answer = await rl.question("  Username (3-20 chars, lowercase): ");
+    username = answer.trim().toLowerCase();
+    const err = validateUsername(username);
+    if (err) {
+      console.log(`  ⚠ ${err} Try again.`);
+    } else {
+      break;
+    }
+  }
+
+  // GitHub (optional)
+  const githubAnswer = await rl.question("  GitHub username (optional, press Enter to skip): ");
+  const github = githubAnswer.trim() || null;
+
+  // Org (optional)
+  const orgAnswer = await rl.question("  Organization (optional, press Enter to skip): ");
+  const org = orgAnswer.trim().toLowerCase() || null;
+
+  rl.close();
+  console.log("");
+
+  return { username, github, org };
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
 
   if (args.help) {
     printHelp();
     process.exit(0);
+  }
+
+  // If no --username flag, run interactive mode
+  if (!args.username) {
+    const interactive = await interactivePrompt();
+    args.username = interactive.username;
+    args.github = interactive.github;
+    args.org = interactive.org;
   }
 
   const usernameError = validateUsername(args.username);
@@ -156,7 +205,7 @@ async function main() {
     });
   }
 
-  // 7. Claim org membership (if --org was provided)
+  // 7. Claim org membership (if org was provided)
   if (args.org) {
     let orgVerified = false;
 
@@ -167,7 +216,7 @@ async function main() {
       if (orgVerified) {
         console.log(`GitHub org membership verified.`);
       } else {
-        console.log(`Note: GitHub org membership not publicly visible (reason: ${orgCheck.reason}). Joining as unverified.`);
+        console.log(`Note: Org membership unverified (${orgCheck.reason}). Joining as unverified.`);
       }
     }
 
@@ -180,9 +229,9 @@ async function main() {
     });
 
     if (orgResult.error) {
-      console.warn(`Warning: Could not join org '${args.org}': ${orgResult.error}`);
+      console.warn(`Warning: Could not join org: ${orgResult.error}`);
     } else {
-      console.log(`Joined org '${args.org}'${orgVerified ? " (verified)" : ""}.`);
+      console.log(`Joined org '${args.org}'.`);
     }
   }
 

@@ -188,60 +188,33 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Get Started (compact) ────────────────────────── */}
+      {/* ── Get Started ────────────────────────────────── */}
       <section className="max-w-2xl mx-auto mb-12 md:mb-16">
         <div
           className="rounded-lg p-5 sm:p-6"
           style={{ backgroundColor: "#1a1a1a", border: "1px solid #2e2e2e" }}
         >
-          <div className="font-display text-sm font-semibold mb-3" style={{ color: "#e5e7eb" }}>
+          <div className="font-display text-sm font-semibold mb-2" style={{ color: "#e5e7eb" }}>
             Get started in seconds
           </div>
-
-          {/* Steps as inline text */}
           <p className="font-sans text-xs mb-4" style={{ color: "#6b7280", lineHeight: 1.7 }}>
-            Run the command below to register your buddy.
-            Your stats, species, and rarity are computed automatically from your Claude Code account.
-            A shareable trading card is generated — embed it in your README or share the link.
+            Run the command below — it&apos;ll walk you through everything interactively.
+            You&apos;ll pick a username, optionally link your GitHub, and join an org.
           </p>
 
-          {/* Commands */}
-          <div className="flex flex-col gap-2">
-            <div
-              className="flex items-center gap-3 rounded-md px-3 py-2"
-              style={{ backgroundColor: "#242424", border: "1px solid #2e2e2e" }}
-            >
-              <code className="font-mono text-xs flex-1" style={{ color: "#4ade80" }}>
-                $ npx buddy-board --username yourname
-              </code>
-              <CopyButton text="npx buddy-board --username yourname" />
-            </div>
-            <div
-              className="flex items-center gap-3 rounded-md px-3 py-2"
-              style={{ backgroundColor: "#242424", border: "1px solid #2e2e2e" }}
-            >
-              <code className="font-mono text-xs flex-1" style={{ color: "#4ade80" }}>
-                $ npx buddy-board --username yourname --github yourgithub
-              </code>
-              <CopyButton text="npx buddy-board --username yourname --github yourgithub" />
-            </div>
-            <div
-              className="flex items-center gap-3 rounded-md px-3 py-2"
-              style={{ backgroundColor: "#242424", border: "1px solid #2e2e2e" }}
-            >
-              <code className="font-mono text-xs flex-1" style={{ color: "#4ade80" }}>
-                $ npx buddy-board --username yourname --github yourgithub --org your-org
-              </code>
-              <CopyButton text="npx buddy-board --username yourname --github yourgithub --org your-org" />
-            </div>
-            <p className="font-sans text-xs mt-2" style={{ color: "#6b7280", lineHeight: 1.6 }}>
-              <span className="font-mono" style={{ color: "#9ca3af" }}>--github</span> links your GitHub profile and adds a verified badge.
-              {" "}
-              <span className="font-mono" style={{ color: "#9ca3af" }}>--org</span> joins your team&apos;s dashboard at{" "}
-              <span className="font-mono" style={{ color: "#4ade80" }}>/org/your-org</span>.
-              Org verification uses GitHub public membership — unverified members still appear on the team board.
-            </p>
+          <div
+            className="flex items-center gap-3 rounded-md px-4 py-3"
+            style={{ backgroundColor: "#242424", border: "1px solid #2e2e2e" }}
+          >
+            <code className="font-mono text-sm flex-1" style={{ color: "#4ade80" }}>
+              $ npx buddy-board
+            </code>
+            <CopyButton text="npx buddy-board" />
           </div>
+
+          <p className="font-mono text-xs mt-3" style={{ color: "#6b7280" }}>
+            Requires Node.js 18+. If you use Claude Code, you already have it.
+          </p>
         </div>
       </section>
 
