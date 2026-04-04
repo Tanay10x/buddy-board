@@ -14,7 +14,7 @@
 
 ### Demo
 
-https://github.com/TanayK07/buddy-board/releases/download/v0.1.0/BuddyBoardPromo.mp4
+https://github.com/user-attachments/assets/294e2874-c150-4447-86ae-c928a2cad5db
 
 ---
 
