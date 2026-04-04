@@ -1,5 +1,17 @@
 export type Rarity = "common" | "uncommon" | "rare" | "epic" | "legendary";
 
+export type Org = {
+  id: string;
+  slug: string;
+  display_name: string;
+  github_org: string | null;
+  description: string | null;
+  unlisted: boolean;
+  created_at: string;
+  member_count: number;
+  verified_member_count: number;
+};
+
 export type Species =
   | "duck" | "goose" | "blob" | "cat" | "dragon" | "octopus" | "owl"
   | "penguin" | "turtle" | "snail" | "ghost" | "axolotl" | "capybara"

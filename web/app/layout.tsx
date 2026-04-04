@@ -74,6 +74,12 @@ export default function RootLayout({
                 Stats
               </a>
               <a
+                href="/org"
+                className="hover:text-white transition-colors"
+              >
+                Orgs
+              </a>
+              <a
                 href="/dex"
                 className="hover:text-white transition-colors"
               >

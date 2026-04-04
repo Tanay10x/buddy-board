@@ -3,7 +3,7 @@ import { BuddyCard } from "@/components/BuddyCard";
 import { ShareButton } from "@/components/ShareButton";
 import { CopyButton } from "@/components/CopyButton";
 import { CompareInput } from "@/components/CompareInput";
-import { getBuddyByUsername, getBuddyRank } from "@/lib/queries";
+import { getBuddyByUsername, getBuddyRank, getBuddyOrgs } from "@/lib/queries";
 import { STAT_NAMES } from "@/lib/constants";
 import type { Metadata } from "next";
 
@@ -41,7 +41,10 @@ export default async function ProfilePage({ params }: Props) {
   const buddy = await getBuddyByUsername(username);
   if (!buddy) notFound();
 
-  const rank = await getBuddyRank(username);
+  const [rank, buddyOrgs] = await Promise.all([
+    getBuddyRank(username),
+    getBuddyOrgs(username),
+  ]);
   const profileUrl = `${SITE_URL}/u/${username}`;
   const cardUrl = `${SITE_URL}/card/${username}`;
   const badgeUrl = `${SITE_URL}/badge/${username}`;
@@ -126,6 +129,37 @@ export default async function ProfilePage({ params }: Props) {
           </div>
         ))}
       </div>
+
+      {/* ── Organizations ────────────────────────────────── */}
+      {buddyOrgs.length > 0 && (
+        <div className="mt-6 sm:mt-8">
+          <h3 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#6b7280" }}>
+            Organizations
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {buddyOrgs.map((org) => (
+              <a
+                key={org.slug}
+                href={`/org/${org.slug}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-sans font-medium transition-colors"
+                style={{
+                  backgroundColor: "#1a1a1a",
+                  border: "1px solid #2e2e2e",
+                  color: "#e5e7eb",
+                  textDecoration: "none",
+                }}
+              >
+                <span>{org.display_name}</span>
+                {org.org_verified && (
+                  <span style={{ color: "#4ade80" }} title="Verified member">
+                    ✓
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ── Share & Embed ────────────────────────────────── */}
       <div className="mt-8 sm:mt-10 space-y-3 sm:space-y-4">

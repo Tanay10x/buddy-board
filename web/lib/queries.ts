@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import type { Buddy, StatName } from "./types";
+import type { Buddy, Org, StatName } from "./types";
 
 type SortField = "total_stats" | StatName | "rarity" | "hatched_at";
 
@@ -140,6 +140,62 @@ export async function getTwoBuddies(
     getBuddyByUsername(user2),
   ]);
   return [a, b];
+}
+
+export async function getOrgs(): Promise<Org[]> {
+  const { data, error } = await supabase
+    .from("orgs_public")
+    .select("*")
+    .eq("unlisted", false)
+    .order("member_count", { ascending: false });
+  if (error || !data) return [];
+  return data as Org[];
+}
+
+export async function getOrgBySlug(slug: string): Promise<Org | null> {
+  const { data, error } = await supabase
+    .from("orgs_public")
+    .select("*")
+    .eq("slug", slug.toLowerCase())
+    .single();
+  if (error) return null;
+  return data as Org;
+}
+
+export async function getOrgMembers(orgId: string): Promise<Buddy[]> {
+  const { data, error } = await supabase
+    .from("org_members")
+    .select("*")
+    .eq("org_id", orgId)
+    .order("total_stats", { ascending: false });
+  if (error || !data) return [];
+  return data as Buddy[];
+}
+
+export async function getBuddyOrgs(username: string): Promise<Array<{ slug: string; display_name: string; org_verified: boolean }>> {
+  // First get buddy id
+  const buddy = await getBuddyByUsername(username);
+  if (!buddy) return [];
+
+  const { data, error } = await supabase
+    .from("buddy_orgs")
+    .select("org_id, org_verified")
+    .eq("buddy_id", buddy.id);
+  if (error || !data) return [];
+
+  // Get org details for each
+  const orgs = [];
+  for (const membership of data) {
+    const { data: orgData } = await supabase
+      .from("orgs_public")
+      .select("slug, display_name")
+      .eq("id", membership.org_id)
+      .single();
+    if (orgData) {
+      orgs.push({ ...orgData, org_verified: membership.org_verified });
+    }
+  }
+  return orgs;
 }
 
 export async function getAllBuddiesLight(): Promise<
