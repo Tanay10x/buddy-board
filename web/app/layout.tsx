@@ -79,6 +79,12 @@ export default function RootLayout({
               >
                 BuddyDex
               </a>
+              <a
+                href="/recent"
+                className="hover:text-white transition-colors"
+              >
+                Recent
+              </a>
             </nav>
           </div>
         </header>

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { BuddyCard } from "@/components/BuddyCard";
 import { ShareButton } from "@/components/ShareButton";
 import { CopyButton } from "@/components/CopyButton";
+import { CompareInput } from "@/components/CompareInput";
 import { getBuddyByUsername, getBuddyRank } from "@/lib/queries";
 import { STAT_NAMES } from "@/lib/constants";
 import type { Metadata } from "next";
@@ -183,6 +184,17 @@ export default async function ProfilePage({ params }: Props) {
         <p className="text-xs" style={{ color: "#6b7280" }}>
           The card image appears automatically when you share your link on X, Discord, Slack, or LinkedIn.
         </p>
+
+        {/* Compare with another buddy */}
+        <div
+          className="rounded-lg p-3 sm:p-4"
+          style={{ backgroundColor: "#1a1a1a", border: "1px solid #2e2e2e" }}
+        >
+          <label className="block font-sans text-xs mb-2 uppercase tracking-wider" style={{ color: "#6b7280" }}>
+            Compare with another buddy
+          </label>
+          <CompareInput username={buddy.username} />
+        </div>
       </div>
     </div>
   );

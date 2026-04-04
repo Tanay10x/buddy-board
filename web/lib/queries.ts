@@ -109,6 +109,50 @@ export async function getSpeciesBuddies(species: string): Promise<Buddy[]> {
   return data as Buddy[];
 }
 
+export async function getRecentBuddies(limit = 30): Promise<Buddy[]> {
+  const { data, error } = await supabase
+    .from("buddies_public")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error || !data) return [];
+  return data as Buddy[];
+}
+
+export async function getBuddiesByRarity(rarity: string): Promise<Buddy[]> {
+  const { data, error } = await supabase
+    .from("buddies_public")
+    .select("*")
+    .eq("rarity", rarity)
+    .order("total_stats", { ascending: false });
+
+  if (error || !data) return [];
+  return data as Buddy[];
+}
+
+export async function getTwoBuddies(
+  user1: string,
+  user2: string,
+): Promise<[Buddy | null, Buddy | null]> {
+  const [a, b] = await Promise.all([
+    getBuddyByUsername(user1),
+    getBuddyByUsername(user2),
+  ]);
+  return [a, b];
+}
+
+export async function getAllBuddiesLight(): Promise<
+  { username: string; species: string; created_at: string }[]
+> {
+  const { data, error } = await supabase
+    .from("buddies_public")
+    .select("username, species, created_at");
+
+  if (error || !data) return [];
+  return data;
+}
+
 export async function getGlobalStats(): Promise<{
   totalBuddies: number;
   speciesCounts: Record<string, number>;
